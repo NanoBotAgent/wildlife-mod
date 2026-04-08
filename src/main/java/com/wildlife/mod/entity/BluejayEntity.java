@@ -94,19 +94,19 @@ public class BluejayEntity extends Animal {
     @Override
     protected SoundEvent getAmbientSound() {
         if (isCalling()) {
-            return SoundEvents.PARROT_AMBIENT.value();
+            return SoundEvents.PARROT_AMBIENT;
         }
         return null;
     }
     
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.PARROT_HURT.value();
+        return SoundEvents.PARROT_HURT;
     }
     
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.PARROT_DEATH.value();
+        return SoundEvents.PARROT_DEATH;
     }
     
     @Override

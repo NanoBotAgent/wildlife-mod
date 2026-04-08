@@ -106,22 +106,22 @@ public class MeerkatEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.FOX_AMBIENT.value();
+        return SoundEvents.FOX_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.FOX_HURT.value();
+        return SoundEvents.FOX_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.FOX_DEATH.value();
+        return SoundEvents.FOX_DEATH;
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP.value(), 0.15F, 1.5F);
+        this.playSound(SoundEvents.CAT_STEP, 0.15F, 1.5F);
     }
 
     public boolean isStanding() {

@@ -97,7 +97,7 @@ public class FireflyEntity extends Animal {
     public void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         if (tag.contains("Variant")) {
-            this.entityData.set(DATA_VARIANT, input.getInt("Variant").orElse(0));
+            this.entityData.set(DATA_VARIANT, input.getInt("Variant", 0));
         }
     }
     
@@ -123,12 +123,12 @@ public class FireflyEntity extends Animal {
     
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.BEE_HURT.value();
+        return SoundEvents.BEE_HURT;
     }
     
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.BEE_DEATH.value();
+        return SoundEvents.BEE_DEATH;
     }
     
     @Override

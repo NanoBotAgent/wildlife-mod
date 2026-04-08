@@ -112,22 +112,22 @@ public class BeaverEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.POLAR_BEAR_AMBIENT.value();
+        return SoundEvents.POLAR_BEAR_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.POLAR_BEAR_HURT.value();
+        return SoundEvents.POLAR_BEAR_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.POLAR_BEAR_DEATH.value();
+        return SoundEvents.POLAR_BEAR_DEATH;
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP.value(), 0.15F, 0.8F);
+        this.playSound(SoundEvents.CAT_STEP, 0.15F, 0.8F);
     }
 
     public boolean isSwimming() {

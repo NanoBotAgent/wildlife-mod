@@ -91,7 +91,7 @@ public void addAdditionalSaveData(ValueOutput output) {
 @Override
 public void readAdditionalSaveData(ValueInput input) {
     super.readAdditionalSaveData(input);
-    this.setVariant(input.getInt("Variant").orElse(0));
+    this.setVariant(input.getInt("Variant", 0));
 }
     
     public int getVariant() {
@@ -178,19 +178,19 @@ public void readAdditionalSaveData(ValueInput input) {
 @Nullable
 @Override
 protected SoundEvent getAmbientSound() {
-    return this.isHissing() ? SoundEvents.PHANTOM_FLAP.value() : SoundEvents.SPIDER_AMBIENT.value();
+    return this.isHissing() ? SoundEvents.PHANTOM_FLAP : SoundEvents.SPIDER_AMBIENT;
 }
 
 @Nullable
 @Override
 protected SoundEvent getHurtSound(DamageSource source) {
-    return SoundEvents.SPIDER_HURT.value();
+    return SoundEvents.SPIDER_HURT;
 }
 
 @Nullable
 @Override
 protected SoundEvent getDeathSound() {
-    return SoundEvents.SPIDER_DEATH.value();
+    return SoundEvents.SPIDER_DEATH;
 }
     
     @Override
