@@ -173,22 +173,22 @@ public class SnakeEntity extends Animal {
         return false;
     }
     
-    @Nullable
+@Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isHissing() ? SoundEvents.SNAKE_HISS : SoundEvents.SNAKE_AMBIENT;
+        return this.isHissing() ? SoundEvents.PHANTOM_FLAP : SoundEvents.SPIDER_AMBIENT;
     }
-    
+
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.SNAKE_HURT;
+        return SoundEvents.SPIDER_HURT;
     }
-    
+
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.SNAKE_DEATH;
+        return SoundEvents.SPIDER_DEATH;
     }
     
     @Override
@@ -196,16 +196,21 @@ public class SnakeEntity extends Animal {
         return 1.5F;
     }
     
-    @Override
+@Override
     public boolean isPushable() {
         return false;
     }
-    
+
     @Override
     protected void pushEntities() {
         // Snakes don't push other entities
     }
-    
+
+    @Override
+    public boolean isFood(net.minecraft.world.item.ItemStack stack) {
+        return stack.is(net.minecraft.world.item.Items.RABBIT) || stack.is(net.minecraft.world.item.Items.CHICKEN);
+    }
+
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {

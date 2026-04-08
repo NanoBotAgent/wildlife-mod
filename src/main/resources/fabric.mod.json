@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "wildlife",
+	"version": "${version}",
+	"name": "Wildlife Mod",
+	"description": "A vanilla-friendly mod adding realistic wildlife mobs across all biomes.",
+	"authors": [
+		"applepie69"
+	],
+	"contact": {
+		"homepage": "https://github.com/NanoBotAgent/wildlife-mod",
+		"sources": "https://github.com/NanoBotAgent/wildlife-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/wildlife/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.wildlife.mod.WildlifeMod"
+		],
+		"client": [
+			"com.wildlife.mod.client.WildlifeModClient"
+		]
+	},
+	"mixins": [
+		"wildlife.mixins.json",
+		{
+			"config": "wildlife.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.18.6",
+		"minecraft": "~26.1.1",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

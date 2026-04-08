@@ -2,10 +2,13 @@
 
 A vanilla-friendly Minecraft mod for **Java Edition 26.1.1** that adds realistic wildlife mobs across all biomes.
 
+**Now available for Fabric!**
+
 ## Requirements
 
 - **Minecraft**: Java Edition 26.1.1
-- **Forge**: 63.0.1 or higher
+- **Fabric Loader**: 0.18.6 or higher
+- **Fabric API**: 0.145.4+26.1.1
 - **Java**: 25 or higher
 
 ## Animals (27 Species!)
@@ -118,9 +121,10 @@ A vanilla-friendly Minecraft mod for **Java Edition 26.1.1** that adds realistic
 
 ## Installation
 
-1. Install Forge 63.0.1+ for Minecraft 26.1.1
-2. Place the mod JAR in your `mods` folder
-3. Launch the game!
+1. Install Fabric Loader 0.18.6+ for Minecraft 26.1.1
+2. Install Fabric API
+3. Place the mod JAR in your `mods` folder
+4. Launch the game!
 
 ## License
 
