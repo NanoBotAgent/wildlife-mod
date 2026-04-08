@@ -61,9 +61,21 @@ public class ModModelLayers {
     
     // Snow/Ice (new)
     public static final ModelLayerLocation PENGUIN =
-        new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(WildlifeMod.MOD_ID, "penguin"), "main");
+    new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(WildlifeMod.MOD_ID, "penguin"), "main");
     public static final ModelLayerLocation GOAT =
-        new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(WildlifeMod.MOD_ID, "goat"), "main");
+    new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(WildlifeMod.MOD_ID, "goat"), "main");
+
+    // Insects
+    public static final ModelLayerLocation BUTTERFLY =
+    new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(WildlifeMod.MOD_ID, "butterfly"), "main");
+    public static final ModelLayerLocation BEE =
+    new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(WildlifeMod.MOD_ID, "bee"), "main");
+    public static final ModelLayerLocation LADYBUG =
+    new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(WildlifeMod.MOD_ID, "ladybug"), "main");
+    public static final ModelLayerLocation DRAGONFLY =
+    new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(WildlifeMod.MOD_ID, "dragonfly"), "main");
+    public static final ModelLayerLocation FIREFLY =
+    new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(WildlifeMod.MOD_ID, "firefly"), "main");
 
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
@@ -85,5 +97,10 @@ public class ModModelLayers {
         event.registerLayerDefinition(BADGER, BadgerModel::createBodyLayer);
         event.registerLayerDefinition(PENGUIN, PenguinModel::createBodyLayer);
         event.registerLayerDefinition(GOAT, GoatModel::createBodyLayer);
+        event.registerLayerDefinition(BUTTERFLY, ButterflyModel::createBodyLayer);
+        event.registerLayerDefinition(BEE, BeeModel::createBodyLayer);
+        event.registerLayerDefinition(LADYBUG, LadybugModel::createBodyLayer);
+        event.registerLayerDefinition(DRAGONFLY, DragonflyModel::createBodyLayer);
+        event.registerLayerDefinition(FIREFLY, FireflyModel::createBodyLayer);
     }
 }

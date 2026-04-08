@@ -143,9 +143,40 @@ public class ModEntities {
             .build(WildlifeMod.MOD_ID + ":penguin"));
     
     public static final RegistryObject<EntityType<GoatEntity>> GOAT =
-        ENTITIES.register("goat", () -> EntityType.Builder.of(GoatEntity::new, MobCategory.CREATURE)
-            .sized(0.9F, 1.2F)
-            .clientTrackingRange(10)
-            .spawnFarFromPlayer()
-            .build(WildlifeMod.MOD_ID + ":goat"));
+    ENTITIES.register("goat", () -> EntityType.Builder.of(GoatEntity::new, MobCategory.CREATURE)
+        .sized(0.9F, 1.2F)
+        .clientTrackingRange(10)
+        .spawnFarFromPlayer()
+        .build(WildlifeMod.MOD_ID + ":goat"));
+
+    // Insects (very small)
+    public static final RegistryObject<EntityType<ButterflyEntity>> BUTTERFLY =
+    ENTITIES.register("butterfly", () -> EntityType.Builder.of(ButterflyEntity::new, MobCategory.AMBIENT)
+        .sized(0.3F, 0.2F)
+        .clientTrackingRange(5)
+        .build(WildlifeMod.MOD_ID + ":butterfly"));
+
+    public static final RegistryObject<EntityType<BeeEntity>> BEE =
+    ENTITIES.register("bee", () -> EntityType.Builder.of(BeeEntity::new, MobCategory.AMBIENT)
+        .sized(0.3F, 0.3F)
+        .clientTrackingRange(5)
+        .build(WildlifeMod.MOD_ID + ":bee"));
+
+    public static final RegistryObject<EntityType<LadybugEntity>> LADYBUG =
+    ENTITIES.register("ladybug", () -> EntityType.Builder.of(LadybugEntity::new, MobCategory.AMBIENT)
+        .sized(0.25F, 0.15F)
+        .clientTrackingRange(4)
+        .build(WildlifeMod.MOD_ID + ":ladybug"));
+
+    public static final RegistryObject<EntityType<DragonflyEntity>> DRAGONFLY =
+    ENTITIES.register("dragonfly", () -> EntityType.Builder.of(DragonflyEntity::new, MobCategory.AMBIENT)
+        .sized(0.4F, 0.2F)
+        .clientTrackingRange(6)
+        .build(WildlifeMod.MOD_ID + ":dragonfly"));
+
+    public static final RegistryObject<EntityType<FireflyEntity>> FIREFLY =
+    ENTITIES.register("firefly", () -> EntityType.Builder.of(FireflyEntity::new, MobCategory.AMBIENT)
+        .sized(0.15F, 0.1F)
+        .clientTrackingRange(4)
+        .build(WildlifeMod.MOD_ID + ":firefly"));
 }

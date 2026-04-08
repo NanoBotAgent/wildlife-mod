@@ -48,5 +48,12 @@ public class ModEntityRenderers {
     // Snow/Ice (new)
     event.registerEntityRenderer(ModEntities.PENGUIN.get(), PenguinRenderer::new);
     event.registerEntityRenderer(ModEntities.GOAT.get(), GoatRenderer::new);
+
+    // Insects
+    event.registerEntityRenderer(ModEntities.BUTTERFLY.get(), ButterflyRenderer::new);
+    event.registerEntityRenderer(ModEntities.BEE.get(), BeeRenderer::new);
+    event.registerEntityRenderer(ModEntities.LADYBUG.get(), LadybugRenderer::new);
+    event.registerEntityRenderer(ModEntities.DRAGONFLY.get(), DragonflyRenderer::new);
+    event.registerEntityRenderer(ModEntities.FIREFLY.get(), FireflyRenderer::new);
     }
-    }
+}
