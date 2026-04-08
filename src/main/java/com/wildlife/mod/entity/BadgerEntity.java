@@ -117,7 +117,7 @@ public class BadgerEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return ModEntities.BADGER.get().create(level);
+        return WildlifeEntities.BADGER.create(level);
     }
 
     @Override

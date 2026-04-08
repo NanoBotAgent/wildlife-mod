@@ -139,7 +139,7 @@ public class MonkeyEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return ModEntities.MONKEY.get().create(level);
+        return WildlifeEntities.MONKEY.create(level);
     }
 
     @Override

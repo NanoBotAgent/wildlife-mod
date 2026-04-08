@@ -112,7 +112,7 @@ public class FoxEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        FoxEntity baby = ModEntities.FOX.get().create(level);
+        FoxEntity baby = WildlifeEntities.FOX.create(level);
         if (baby != null) {
             baby.setVariant(this.random.nextInt(3));
         }

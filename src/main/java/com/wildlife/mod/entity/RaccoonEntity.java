@@ -107,7 +107,7 @@ public class RaccoonEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return ModEntities.RACCOON.get().create(level);
+        return WildlifeEntities.RACCOON.create(level);
     }
 
     @Override

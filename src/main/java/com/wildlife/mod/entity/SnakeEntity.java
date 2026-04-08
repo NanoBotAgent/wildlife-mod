@@ -24,7 +24,7 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 
-public class SnakeEntity extends Animal {
+public class SnakeEntity extends PathfinderMob {
     private static final EntityDataAccessor<Integer> VARIANT = 
         SynchedEntityData.defineId(SnakeEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> IS_HISSING = 
@@ -215,7 +215,7 @@ public class SnakeEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        SnakeEntity baby = ModEntities.SNAKE.get().create(level);
+        SnakeEntity baby = WildlifeEntities.SNAKE.create(level);
         if (baby != null) {
             baby.setVariant(this.random.nextInt(3));
         }

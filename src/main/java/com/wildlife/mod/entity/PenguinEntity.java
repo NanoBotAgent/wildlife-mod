@@ -129,7 +129,7 @@ public class PenguinEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return ModEntities.PENGUIN.get().create(level);
+        return WildlifeEntities.PENGUIN.create(level);
     }
 
     @Override

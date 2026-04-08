@@ -140,7 +140,7 @@ public class OwlEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return ModEntities.OWL.get().create(level);
+        return WildlifeEntities.OWL.create(level);
     }
 
     @Override

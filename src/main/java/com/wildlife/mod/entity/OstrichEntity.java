@@ -2,7 +2,8 @@ package com.wildlife.mod.entity;
 import net.minecraft.server.level.ServerLevel;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -203,24 +204,24 @@ public class OstrichEntity extends Animal {
         this.entityData.set(DATA_SADDLED, saddled);
     }
     
-    @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
-        tag.putBoolean("Saddled", this.isSaddled());
-    }
-    
-    @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
-        this.setSaddled(tag.getBoolean("Saddled"));
-    }
+@Override
+public void addAdditionalSaveData(ValueOutput output) {
+super.addAdditionalSaveData(output);
+output.putBoolean("Saddled", this.isSaddled());
+}
+
+@Override
+public void readAdditionalSaveData(ValueInput input) {
+super.readAdditionalSaveData(input);
+this.setSaddled(input.getBoolean("Saddled").orElse(false));
+}
     
     // === End rideable ===
     
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return ModEntities.OSTRICH.get().create(level);
+        return WildlifeEntities.OSTRICH.create(level);
     }
     
     @Override

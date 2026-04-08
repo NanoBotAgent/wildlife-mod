@@ -125,7 +125,7 @@ public class DuckEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return ModEntities.DUCK.get().create(level);
+        return WildlifeEntities.DUCK.create(level);
     }
 
     @Override

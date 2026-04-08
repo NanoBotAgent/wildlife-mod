@@ -105,7 +105,7 @@ public class TapirEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return ModEntities.TAPIR.get().create(level);
+        return WildlifeEntities.TAPIR.create(level);
     }
 
     @Override
