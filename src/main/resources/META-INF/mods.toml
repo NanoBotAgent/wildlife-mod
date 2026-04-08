@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[63,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/wildlife-mod/issues"
+
+[[mods]]
+modId = "wildlife"
+version = "1.0.0"
+displayName = "Wildlife Mod"
+authors = "Wildlife Team"
+description = '''Adds vanilla-friendly wildlife mobs like deer and monkeys to enhance your Minecraft experience.'''
+
+[[mixins]]
+config = "wildlife.mixins.json"
+
+[[dependencies.wildlife]]
+modId = "minecraft"
+type = "required"
+versionRange = "[26.1.1,26.2)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.wildlife]]
+modId = "forge"
+type = "required"
+versionRange = "[63.0.1,)"
+ordering = "NONE"
+side = "BOTH"

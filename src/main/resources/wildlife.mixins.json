@@ -1,0 +1,12 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.wildlife.mod.mixin",
+    "compatibilityLevel": "JAVA_25",
+    "refmap": "wildlife.refmap.json",
+    "mixins": [],
+    "client": [],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}
