@@ -1,4 +1,5 @@
 package com.wildlife.mod.entity;
+import net.minecraft.server.level.ServerLevel;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -21,7 +22,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+import net.minecraft.server.level.ServerLevel;
 
 public class BoarEntity extends Animal {
     private static final EntityDataAccessor<Boolean> DATA_CHARGING = 
@@ -84,7 +86,7 @@ public class BoarEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return ModEntities.BOAR.get().create(level);
+        return WildlifeEntities.BOAR.create(level);
     }
 
     @Override
