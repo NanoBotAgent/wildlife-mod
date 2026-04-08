@@ -3,7 +3,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.server.level.ServerLevel;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -87,16 +88,16 @@ public class FireflyEntity extends Animal {
     }
     
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
-        tag.putInt("Variant", getVariant());
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putInt("Variant", getVariant());
     }
     
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
         if (tag.contains("Variant")) {
-            this.entityData.set(DATA_VARIANT, tag.getInt("Variant"));
+            this.entityData.set(DATA_VARIANT, input.getInt("Variant").orElse(0));
         }
     }
     
@@ -122,12 +123,12 @@ public class FireflyEntity extends Animal {
     
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.BEE_HURT;
+        return SoundEvents.BEE_HURT.value();
     }
     
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.BEE_DEATH;
+        return SoundEvents.BEE_DEATH.value();
     }
     
     @Override

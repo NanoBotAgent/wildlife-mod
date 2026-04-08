@@ -2,7 +2,8 @@ package com.wildlife.mod.entity;
 import net.minecraft.server.level.ServerLevel;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -130,22 +131,22 @@ public class DuckEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.CHICKEN_AMBIENT;
+        return SoundEvents.CHICKEN_AMBIENT.value();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.CHICKEN_HURT;
+        return SoundEvents.CHICKEN_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.CHICKEN_DEATH;
+        return SoundEvents.CHICKEN_DEATH.value();
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP, 0.15F, 1.5F);
+        this.playSound(SoundEvents.CAT_STEP.value(), 0.15F, 1.5F);
     }
 
     public boolean isSwimming() {

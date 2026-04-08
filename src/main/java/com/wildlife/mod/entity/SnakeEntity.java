@@ -1,7 +1,8 @@
 package com.wildlife.mod.entity;
 import net.minecraft.server.level.ServerLevel;
 
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -81,17 +82,17 @@ public class SnakeEntity extends PathfinderMob {
         builder.define(TAIL_WAVE, 0.0F);
     }
     
-    @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
-        tag.putInt("Variant", this.getVariant());
-    }
-    
-    @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
-        this.setVariant(tag.getInt("Variant"));
-    }
+@Override
+public void addAdditionalSaveData(ValueOutput output) {
+    super.addAdditionalSaveData(output);
+    output.putInt("Variant", this.getVariant());
+}
+
+@Override
+public void readAdditionalSaveData(ValueInput input) {
+    super.readAdditionalSaveData(input);
+    this.setVariant(input.getInt("Variant").orElse(0));
+}
     
     public int getVariant() {
         return this.entityData.get(VARIANT);
@@ -175,22 +176,22 @@ public class SnakeEntity extends PathfinderMob {
     }
     
 @Nullable
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return this.isHissing() ? SoundEvents.PHANTOM_FLAP : SoundEvents.SPIDER_AMBIENT;
-    }
+@Override
+protected SoundEvent getAmbientSound() {
+    return this.isHissing() ? SoundEvents.PHANTOM_FLAP.value() : SoundEvents.SPIDER_AMBIENT.value();
+}
 
-    @Nullable
-    @Override
-    protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.SPIDER_HURT;
-    }
+@Nullable
+@Override
+protected SoundEvent getHurtSound(DamageSource source) {
+    return SoundEvents.SPIDER_HURT.value();
+}
 
-    @Nullable
-    @Override
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.SPIDER_DEATH;
-    }
+@Nullable
+@Override
+protected SoundEvent getDeathSound() {
+    return SoundEvents.SPIDER_DEATH.value();
+}
     
     @Override
     public float getVoicePitch() {

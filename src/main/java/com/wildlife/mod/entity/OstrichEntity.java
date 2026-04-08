@@ -119,7 +119,7 @@ public class OstrichEntity extends Animal {
             if (!this.level().isClientSide) {
                 this.setSaddled(true);
                 stack.shrink(1);
-                this.playSound(SoundEvents.HORSE_SADDLE, 0.5F, 1.0F);
+                this.playSound(SoundEvents.HORSE_SADDLE.value(), 0.5F, 1.0F);
             }
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
@@ -226,22 +226,22 @@ this.setSaddled(input.getBoolean("Saddled").orElse(false));
     
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.CHICKEN_AMBIENT;
+        return SoundEvents.CHICKEN_AMBIENT.value();
     }
     
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.CHICKEN_HURT;
+        return SoundEvents.CHICKEN_HURT.value();
     }
     
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.CHICKEN_DEATH;
+        return SoundEvents.CHICKEN_DEATH.value();
     }
     
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAMEL_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.CAMEL_STEP.value(), 0.15F, 1.0F);
     }
     
     public boolean isRunning() {

@@ -82,17 +82,17 @@ public class CrowEntity extends Animal {
     
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.PARROT_AMBIENT; // Caw sound
+        return SoundEvents.PARROT_AMBIENT.value(); // Caw sound
     }
     
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.PARROT_HURT;
+        return SoundEvents.PARROT_HURT.value();
     }
     
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.PARROT_DEATH;
+        return SoundEvents.PARROT_DEATH.value();
     }
     
     @Override

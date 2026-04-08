@@ -81,14 +81,15 @@ public class BeeEntity extends Animal {
         }
     }
     
-    @Override
-    public boolean hurt(DamageSource source, float amount) {
-        boolean hurt = super.hurt(source, amount);
-        if (hurt && source.getEntity() instanceof Player) {
-            this.setAngry(true);
-        }
-        return hurt;
+@Override
+public boolean hurt(DamageSource source, float amount) {
+    boolean wasAlive = this.isAlive();
+    super.hurt(source, amount);
+    if (this.isAlive() && source.getEntity() instanceof Player) {
+        this.setAngry(true);
     }
+    return this.hurtMarked;
+}
     
     @Override
     public boolean isPushable() {
@@ -107,17 +108,17 @@ public class BeeEntity extends Animal {
     
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.BEE_LOOP;
+        return SoundEvents.BEE_LOOP.value();
     }
     
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.BEE_HURT;
+        return SoundEvents.BEE_HURT.value();
     }
     
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.BEE_DEATH;
+        return SoundEvents.BEE_DEATH.value();
     }
     
     @Override

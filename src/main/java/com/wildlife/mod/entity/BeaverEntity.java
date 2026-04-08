@@ -3,7 +3,8 @@ import net.minecraft.server.level.ServerLevel;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -111,22 +112,22 @@ public class BeaverEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.POLAR_BEAR_AMBIENT;
+        return SoundEvents.POLAR_BEAR_AMBIENT.value();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.POLAR_BEAR_HURT;
+        return SoundEvents.POLAR_BEAR_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.POLAR_BEAR_DEATH;
+        return SoundEvents.POLAR_BEAR_DEATH.value();
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP, 0.15F, 0.8F);
+        this.playSound(SoundEvents.CAT_STEP.value(), 0.15F, 0.8F);
     }
 
     public boolean isSwimming() {
