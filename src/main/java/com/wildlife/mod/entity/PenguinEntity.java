@@ -103,7 +103,7 @@ public class PenguinEntity extends Animal {
         }
         
         // Slide timer
-        if (!this.level().isClientSide && this.isSliding()) {
+        if (!this.level().isClientSide() && this.isSliding()) {
             this.slideTimer--;
             if (this.slideTimer <= 0) {
                 this.setSliding(false);
@@ -130,7 +130,7 @@ public class PenguinEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.PENGUIN.create(level);
+        return WildlifeEntities.PENGUIN.spawn(level);
     }
 
     @Override
@@ -214,7 +214,7 @@ public class PenguinEntity extends Animal {
 
         public PenguinSlideGoal(PenguinEntity penguin) {
             this.penguin = penguin;
-            this.setFlags(EnumSet.of(Flag.MOVE));
+            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE));
         }
 
         @Override

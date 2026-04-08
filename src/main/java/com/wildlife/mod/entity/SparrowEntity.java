@@ -24,7 +24,6 @@ public class SparrowEntity extends Animal {
     
     public SparrowEntity(EntityType<? extends SparrowEntity> type, Level level) {
         super(type, level);
-        this.setDimensions(Pose.STANDING, new Dimensions(0.3F, 0.3F, 0.3F));
     }
     
     public static AttributeSupplier.Builder createAttributes() {

@@ -76,7 +76,7 @@ public class MeerkatEntity extends Animal {
         
         this.tailWag += 0.15F;
         
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()()) {
             if (this.isStanding()) {
                 this.standTimer--;
                 if (this.standTimer <= 0) {
@@ -101,7 +101,7 @@ public class MeerkatEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.MEERKAT.create(level);
+        return WildlifeEntities.MEERKAT.spawn(level);
     }
 
     @Override
@@ -121,7 +121,7 @@ public class MeerkatEntity extends Animal {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP, 0.15F, 1.5F);
+        this.playSound(SoundEvents.CAT_STEP.value(), 0.15F, 1.5F);
     }
 
     public boolean isStanding() {
@@ -149,7 +149,7 @@ public class MeerkatEntity extends Animal {
 
         public MeerkatStandGoal(MeerkatEntity meerkat) {
             this.meerkat = meerkat;
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override
@@ -176,7 +176,7 @@ public class MeerkatEntity extends Animal {
 
         public MeerkatDigGoal(MeerkatEntity meerkat) {
             this.meerkat = meerkat;
-            this.setFlags(EnumSet.of(Flag.MOVE));
+            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE));
         }
 
         @Override

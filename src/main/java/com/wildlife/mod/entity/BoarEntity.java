@@ -69,7 +69,7 @@ public class BoarEntity extends Animal {
     public void tick() {
         super.tick();
         
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()()) {
             if (this.isCharging()) {
                 this.chargeTimer--;
                 if (this.chargeTimer <= 0) {
@@ -87,7 +87,7 @@ public class BoarEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.BOAR.create(level);
+        return WildlifeEntities.BOAR.spawn(level);
     }
 
     @Override
@@ -107,7 +107,7 @@ public class BoarEntity extends Animal {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.PIG_STEP, 0.15F, 0.8F);
+        this.playSound(SoundEvents.PIG_STEP.value(), 0.15F, 0.8F);
     }
 
     public boolean isCharging() {
@@ -130,7 +130,7 @@ public class BoarEntity extends Animal {
 
         public BoarChargeGoal(BoarEntity boar) {
             this.boar = boar;
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override

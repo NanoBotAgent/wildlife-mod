@@ -27,7 +27,6 @@ public class ButterflyEntity extends Animal {
     
     public ButterflyEntity(EntityType<? extends ButterflyEntity> type, Level level) {
         super(type, level);
-        this.setDimensions(Pose.STANDING, new Dimensions(0.3F, 0.2F, 0.3F));
     }
     
     public static AttributeSupplier.Builder createAttributes() {

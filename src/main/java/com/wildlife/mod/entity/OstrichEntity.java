@@ -88,7 +88,7 @@ public class OstrichEntity extends Animal {
             this.setRunning(false);
         }
         
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()()) {
             if (this.isHeadDown()) {
                 this.headDownTimer--;
                 if (this.headDownTimer <= 0) {
@@ -110,30 +110,30 @@ public class OstrichEntity extends Animal {
         return stack.is(Items.WHEAT_SEEDS) || stack.is(Items.MELON_SEEDS) || stack.is(Items.PUMPKIN_SEEDS);
     }
     
-    @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-        
-        // Saddle interaction
-        if (stack.is(Items.SADDLE) && !this.isSaddled() && !this.isBaby()) {
-            if (!this.level().isClientSide) {
-                this.setSaddled(true);
-                stack.shrink(1);
-                this.playSound(SoundEvents.HORSE_SADDLE, 0.5F, 1.0F);
-            }
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+@Override
+public InteractionResult mobInteract(Player player, InteractionHand hand) {
+    ItemStack stack = player.getItemInHand(hand);
+
+    // Saddle interaction
+    if (stack.is(Items.SADDLE) && !this.isSaddled() && !this.isBaby()) {
+        if (!this.level().isClientSide()) {
+            this.setSaddled(true);
+            stack.shrink(1);
+            this.playSound(SoundEvents.HORSE_SADDLE.value(), 0.5F, 1.0F);
         }
-        
-        // Mount if saddled
-        if (this.isSaddled() && !this.isBaby()) {
-            if (!this.level().isClientSide) {
-                player.startRiding(this);
-            }
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
-        }
-        
-        return super.mobInteract(player, hand);
+        return InteractionResult.sidedSuccess(this.level().isClientSide());
     }
+
+    // Mount if saddled
+    if (this.isSaddled() && !this.isBaby()) {
+        if (!this.level().isClientSide()) {
+            player.startRiding(this);
+        }
+        return InteractionResult.sidedSuccess(this.level().isClientSide());
+    }
+
+    return super.mobInteract(player, hand);
+}
     
     @Override
     public void travel(Vec3 travelVector) {
@@ -162,15 +162,15 @@ public class OstrichEntity extends Animal {
         }
     }
     
-    @Override
-    public void positionRider(Entity passenger, MoveControl moveControl) {
-        if (this.hasPassenger(passenger)) {
-            // Position rider on back
-            passenger.setYRot(this.getYRot());
-            passenger.setYHeadRot(this.getYHeadRot());
-            passenger.setPos(this.getX(), this.getY() + 1.8D, this.getZ());
-        }
+@Override
+public void positionRider(Entity passenger) {
+    if (this.hasPassenger(passenger)) {
+        // Position rider on back
+        passenger.setYRot(this.getYRot());
+        passenger.setYHeadRot(this.getYHeadRot());
+        passenger.setPos(this.getX(), this.getY() + 1.8D, this.getZ());
     }
+}
     
     @Override
     public boolean isControlledByLocalInstance() {
@@ -221,7 +221,7 @@ this.setSaddled(input.getBoolean("Saddled", false));
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.OSTRICH.create(level);
+        return WildlifeEntities.OSTRICH.spawn(level);
     }
     
     @Override

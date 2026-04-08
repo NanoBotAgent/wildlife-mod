@@ -23,7 +23,6 @@ public class CrowEntity extends Animal {
     
     public CrowEntity(EntityType<? extends CrowEntity> type, Level level) {
         super(type, level);
-        this.setDimensions(Pose.STANDING, new Dimensions(0.4F, 0.4F, 0.4F));
     }
     
     public static AttributeSupplier.Builder createAttributes() {

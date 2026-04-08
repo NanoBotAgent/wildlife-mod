@@ -73,7 +73,7 @@ public class MarmotEntity extends Animal {
         
         this.tailWag += 0.15F;
         
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()()) {
             if (this.isStanding()) {
                 this.standTimer--;
                 if (this.standTimer <= 0) {
@@ -96,7 +96,7 @@ public class MarmotEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.MARMOT.create(level);
+        return WildlifeEntities.MARMOT.spawn(level);
     }
 
     @Override
@@ -116,7 +116,7 @@ public class MarmotEntity extends Animal {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP, 0.15F, 1.2F);
+        this.playSound(SoundEvents.CAT_STEP.value(), 0.15F, 1.2F);
     }
 
     public boolean isStanding() {

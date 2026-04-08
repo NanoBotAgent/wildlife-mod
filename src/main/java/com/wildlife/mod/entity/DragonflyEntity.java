@@ -23,7 +23,6 @@ public class DragonflyEntity extends Animal {
     
     public DragonflyEntity(EntityType<? extends DragonflyEntity> type, Level level) {
         super(type, level);
-        this.setDimensions(Pose.STANDING, new Dimensions(0.4F, 0.2F, 0.4F));
     }
     
     public static AttributeSupplier.Builder createAttributes() {

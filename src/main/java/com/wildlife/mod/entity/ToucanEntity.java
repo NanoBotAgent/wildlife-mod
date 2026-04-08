@@ -89,7 +89,7 @@ public class ToucanEntity extends Animal {
         }
         this.beakOpen = Mth.lerp(0.1F, this.beakOpen, 0);
         
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()()) {
             if (this.isPerched()) {
                 this.perchTimer--;
                 if (this.perchTimer <= 0) {
@@ -107,7 +107,7 @@ public class ToucanEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.TOUCAN.create(level);
+        return WildlifeEntities.TOUCAN.spawn(level);
     }
 
     @Override
@@ -127,7 +127,7 @@ public class ToucanEntity extends Animal {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.CAT_STEP.value(), 0.15F, 1.0F);
     }
 
     public boolean isFlying() {
@@ -168,7 +168,7 @@ public class ToucanEntity extends Animal {
 
         public ToucanFlyGoal(ToucanEntity toucan) {
             this.toucan = toucan;
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP));
+            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.JUMP));
         }
 
         @Override

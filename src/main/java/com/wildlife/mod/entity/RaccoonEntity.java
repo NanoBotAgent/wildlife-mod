@@ -92,7 +92,7 @@ public class RaccoonEntity extends Animal {
         }
         
         // Wash timer
-        if (!this.level().isClientSide && this.isWashing()) {
+        if (!this.level().isClientSide() && this.isWashing()) {
             this.washTimer--;
             if (this.washTimer <= 0) {
                 this.setWashing(false);
@@ -108,7 +108,7 @@ public class RaccoonEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.RACCOON.create(level);
+        return WildlifeEntities.RACCOON.spawn(level);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class RaccoonEntity extends Animal {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.CAT_STEP.value(), 0.15F, 1.0F);
     }
 
     public boolean isWashing() {
@@ -164,7 +164,7 @@ public class RaccoonEntity extends Animal {
 
         public RaccoonWashGoal(RaccoonEntity raccoon) {
             this.raccoon = raccoon;
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override
@@ -190,7 +190,7 @@ public class RaccoonEntity extends Animal {
 
         public RaccoonStandGoal(RaccoonEntity raccoon) {
             this.raccoon = raccoon;
-            this.setFlags(EnumSet.of(Flag.MOVE));
+            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE));
         }
 
         @Override

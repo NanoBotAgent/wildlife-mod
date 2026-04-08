@@ -24,7 +24,6 @@ public class BluejayEntity extends Animal {
     
     public BluejayEntity(EntityType<? extends BluejayEntity> type, Level level) {
         super(type, level);
-        this.setDimensions(Pose.STANDING, new Dimensions(0.35F, 0.35F, 0.35F));
     }
     
     public static AttributeSupplier.Builder createAttributes() {

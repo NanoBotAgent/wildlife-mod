@@ -85,7 +85,7 @@ public class BeaverEntity extends Animal {
             this.setSwimming(false);
         }
         
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()()) {
             if (this.isBuilding()) {
                 this.buildTimer--;
                 if (this.buildTimer <= 0) {
@@ -107,7 +107,7 @@ public class BeaverEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.BEAVER.create(level);
+        return WildlifeEntities.BEAVER.spawn(level);
     }
 
     @Override
@@ -127,7 +127,7 @@ public class BeaverEntity extends Animal {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP, 0.15F, 0.8F);
+        this.playSound(SoundEvents.CAT_STEP.value(), 0.15F, 0.8F);
     }
 
     public boolean isSwimming() {
@@ -164,7 +164,7 @@ public class BeaverEntity extends Animal {
 
         public BeaverBuildGoal(BeaverEntity beaver) {
             this.beaver = beaver;
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override

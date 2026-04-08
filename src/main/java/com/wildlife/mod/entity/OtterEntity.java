@@ -77,7 +77,7 @@ public class OtterEntity extends Animal {
         
         this.tailWave += 0.2F;
         
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()()) {
             if (this.isInWater()) {
                 this.setSwimming(true);
                 
@@ -118,7 +118,7 @@ public class OtterEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.OTTER.create(level);
+        return WildlifeEntities.OTTER.spawn(level);
     }
 
     @Override
@@ -138,7 +138,7 @@ public class OtterEntity extends Animal {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP, 0.15F, 1.2F);
+        this.playSound(SoundEvents.CAT_STEP.value(), 0.15F, 1.2F);
     }
 
     public boolean isSwimming() {
@@ -193,7 +193,7 @@ public class OtterEntity extends Animal {
 
         public OtterSwimGoal(OtterEntity otter) {
             this.otter = otter;
-            this.setFlags(EnumSet.of(Flag.MOVE));
+            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE));
         }
 
         @Override

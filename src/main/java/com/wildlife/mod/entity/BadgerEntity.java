@@ -18,7 +18,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Rabbit;
+import net.minecraft.world.entity.animal.passive.Rabbit;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -97,7 +97,7 @@ public class BadgerEntity extends Animal {
         }
         
         // Dig timer
-        if (!this.level().isClientSide && this.isDigging()) {
+        if (!this.level().isClientSide() && this.isDigging()) {
             this.digTimer--;
             if (this.digTimer <= 0) {
                 this.setDigging(false);
@@ -118,7 +118,7 @@ public class BadgerEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.BADGER.create(level);
+        return WildlifeEntities.BADGER.spawn(level);
     }
 
     @Override
@@ -170,7 +170,7 @@ public class BadgerEntity extends Animal {
 
         public BadgerDigGoal(BadgerEntity badger) {
             this.badger = badger;
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override

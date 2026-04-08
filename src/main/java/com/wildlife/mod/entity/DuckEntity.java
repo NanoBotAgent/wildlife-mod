@@ -126,7 +126,7 @@ public class DuckEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.DUCK.create(level);
+        return WildlifeEntities.DUCK.spawn(level);
     }
 
     @Override
@@ -146,7 +146,7 @@ public class DuckEntity extends Animal {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP, 0.15F, 1.5F);
+        this.playSound(SoundEvents.CAT_STEP.value(), 0.15F, 1.5F);
     }
 
     public boolean isSwimming() {

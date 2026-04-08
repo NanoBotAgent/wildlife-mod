@@ -23,7 +23,6 @@ public class CardinalEntity extends Animal {
     
     public CardinalEntity(EntityType<? extends CardinalEntity> type, Level level) {
         super(type, level);
-        this.setDimensions(Pose.STANDING, new Dimensions(0.35F, 0.35F, 0.35F));
     }
     
     public static AttributeSupplier.Builder createAttributes() {

@@ -90,7 +90,7 @@ public class OwlEntity extends Animal {
             this.wingFlap = Mth.lerp(0.1F, this.wingFlap, 0);
         }
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()()) {
             if (this.isPerched()) {
                 this.perchTimer--;
                 if (this.perchTimer <= 0) {
@@ -141,7 +141,7 @@ public class OwlEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.OWL.create(level);
+        return WildlifeEntities.OWL.spawn(level);
     }
 
     @Override
@@ -161,7 +161,7 @@ public class OwlEntity extends Animal {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.CAT_STEP.value(), 0.15F, 1.0F);
     }
 
     public boolean isFlying() {
@@ -226,7 +226,7 @@ public class OwlEntity extends Animal {
 
         public OwlFlyGoal(OwlEntity owl) {
             this.owl = owl;
-            this.setFlags(EnumSet.of(Flag.MOVE));
+            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE));
         }
 
         @Override
@@ -249,7 +249,7 @@ public class OwlEntity extends Animal {
 
         public OwlPerchGoal(OwlEntity owl) {
             this.owl = owl;
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP));
+            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.JUMP));
         }
 
         @Override

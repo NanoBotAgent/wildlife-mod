@@ -17,8 +17,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.Rabbit;
-import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.entity.animal.passive.Rabbit;
+import net.minecraft.world.entity.animal.passive.Chicken;
 import net.minecraft.world.level.Level;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
@@ -216,7 +216,7 @@ protected SoundEvent getDeathSound() {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        SnakeEntity baby = WildlifeEntities.SNAKE.create(level);
+        SnakeEntity baby = WildlifeEntities.SNAKE.spawn(level);
         if (baby != null) {
             baby.setVariant(this.random.nextInt(3));
         }

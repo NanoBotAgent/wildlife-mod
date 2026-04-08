@@ -33,7 +33,6 @@ public class FireflyEntity extends Animal {
     
     public FireflyEntity(EntityType<? extends FireflyEntity> type, Level level) {
         super(type, level);
-        this.setDimensions(Pose.STANDING, new Dimensions(0.15F, 0.1F, 0.15F));
     }
     
     public static AttributeSupplier.Builder createAttributes() {

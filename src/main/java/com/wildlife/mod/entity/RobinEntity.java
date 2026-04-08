@@ -22,10 +22,10 @@ public class RobinEntity extends Animal {
     private int hopTimer = 0;
     private int singTimer = 0;
     
-    public RobinEntity(EntityType<? extends RobinEntity> type, Level level) {
-        super(type, level);
-        this.setDimensions(Pose.STANDING, new Dimensions(0.35F, 0.35F, 0.35F));
-    }
+public RobinEntity(EntityType<? extends RobinEntity> type, Level level) {
+    super(type, level);
+    // Entity dimensions are set via EntityType in 26.1
+}
     
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createAnimalAttributes()
@@ -113,11 +113,16 @@ public class RobinEntity extends Animal {
         // Silent
     }
     
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob partner) {
-        return null;
-    }
+@Nullable
+@Override
+public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob partner) {
+    return null;
+}
+
+@Override
+public boolean isFood(net.minecraft.world.item.ItemStack stack) {
+    return stack.is(net.minecraft.world.item.Items.WHEAT_SEEDS);
+}
     
     static class RobinSingGoal extends Goal {
         private final RobinEntity robin;

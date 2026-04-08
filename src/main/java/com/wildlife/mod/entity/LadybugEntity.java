@@ -25,7 +25,6 @@ public class LadybugEntity extends Animal {
     
     public LadybugEntity(EntityType<? extends LadybugEntity> type, Level level) {
         super(type, level);
-        this.setDimensions(Pose.STANDING, new Dimensions(0.25F, 0.15F, 0.25F));
     }
     
     public static AttributeSupplier.Builder createAttributes() {

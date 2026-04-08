@@ -79,7 +79,7 @@ public class TapirEntity extends Animal {
         if (this.isInWater()) {
             this.setSwimming(true);
             
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()()) {
                 if (this.random.nextInt(200) == 0 && !this.isWallowing()) {
                     this.setWallowing(true);
                     this.wallowTimer = 100 + this.random.nextInt(100);
@@ -90,7 +90,7 @@ public class TapirEntity extends Animal {
             this.setWallowing(false);
         }
         
-        if (!this.level().isClientSide && this.isWallowing()) {
+        if (!this.level().isClientSide() && this.isWallowing()) {
             this.wallowTimer--;
             if (this.wallowTimer <= 0) {
                 this.setWallowing(false);
@@ -106,7 +106,7 @@ public class TapirEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.TAPIR.create(level);
+        return WildlifeEntities.TAPIR.spawn(level);
     }
 
     @Override

@@ -90,7 +90,7 @@ public class MonkeyEntity extends Animal {
             this.armSwing += 0.15F;
         }
         
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()()) {
             if (this.climbCooldown > 0) {
                 this.climbCooldown--;
             }
@@ -140,7 +140,7 @@ public class MonkeyEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.MONKEY.create(level);
+        return WildlifeEntities.MONKEY.spawn(level);
     }
 
     @Override
@@ -160,7 +160,7 @@ public class MonkeyEntity extends Animal {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP, 0.15F, 1.2F);
+        this.playSound(SoundEvents.CAT_STEP.value(), 0.15F, 1.2F);
     }
 
     public boolean isClimbing() {
@@ -195,31 +195,31 @@ public class MonkeyEntity extends Animal {
         return Mth.sin(this.armSwing + partialTick) * 0.5F;
     }
 
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("Climbing", this.isClimbing());
-        compound.putBoolean("Sitting", this.isSitting());
-        compound.putInt("Variant", this.getVariant());
-    }
+@Override
+public void addAdditionalSaveData(ValueOutput output) {
+    super.addAdditionalSaveData(output);
+    output.putBoolean("Climbing", this.isClimbing());
+    output.putBoolean("Sitting", this.isSitting());
+    output.putInt("Variant", this.getVariant());
+}
 
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setClimbing(compound.getBoolean("Climbing"));
-        this.setSitting(compound.getBoolean("Sitting"));
-        this.setVariant(compound.getInt("Variant"));
-    }
+@Override
+public void readAdditionalSaveData(ValueInput input) {
+    super.readAdditionalSaveData(input);
+    this.setClimbing(input.getBoolean("Climbing", false));
+    this.setSitting(input.getBoolean("Sitting", false));
+    this.setVariant(input.getInt("Variant", 0));
+}
 
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, 
-                                        MobSpawnType reason, @Nullable SpawnGroupData spawnData,
-                                        @Nullable CompoundTag dataTag) {
-        if (spawnData == null) {
-            spawnData = new AgeableMob.AgeableMobGroupData(0.1F);
-        }
-        return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+@Override
+public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty,
+    MobSpawnType reason, @Nullable SpawnGroupData spawnData,
+    @Nullable ValueInput dataTag) {
+    if (spawnData == null) {
+        spawnData = new AgeableMob.AgeableMobGroupData(0.1F);
     }
+    return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+}
 
     public static class MonkeyClimbTreeGoal extends Goal {
         private final MonkeyEntity monkey;
@@ -227,7 +227,7 @@ public class MonkeyEntity extends Animal {
 
         public MonkeyClimbTreeGoal(MonkeyEntity monkey) {
             this.monkey = monkey;
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP));
+            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.JUMP));
         }
 
         @Override
