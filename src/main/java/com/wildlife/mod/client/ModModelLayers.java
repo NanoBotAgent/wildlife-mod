@@ -77,6 +77,18 @@ public class ModModelLayers {
     public static final ModelLayerLocation FIREFLY =
     new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(WildlifeMod.MOD_ID, "firefly"), "main");
 
+    // Birds
+    public static final ModelLayerLocation SPARROW =
+    new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(WildlifeMod.MOD_ID, "sparrow"), "main");
+    public static final ModelLayerLocation ROBIN =
+    new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(WildlifeMod.MOD_ID, "robin"), "main");
+    public static final ModelLayerLocation CROW =
+    new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(WildlifeMod.MOD_ID, "crow"), "main");
+    public static final ModelLayerLocation CARDINAL =
+    new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(WildlifeMod.MOD_ID, "cardinal"), "main");
+    public static final ModelLayerLocation BLUEJAY =
+    new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(WildlifeMod.MOD_ID, "bluejay"), "main");
+
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(DEER, DeerModel::createBodyLayer);
@@ -102,5 +114,10 @@ public class ModModelLayers {
         event.registerLayerDefinition(LADYBUG, LadybugModel::createBodyLayer);
         event.registerLayerDefinition(DRAGONFLY, DragonflyModel::createBodyLayer);
         event.registerLayerDefinition(FIREFLY, FireflyModel::createBodyLayer);
+        event.registerLayerDefinition(SPARROW, SparrowModel::createBodyLayer);
+        event.registerLayerDefinition(ROBIN, RobinModel::createBodyLayer);
+        event.registerLayerDefinition(CROW, CrowModel::createBodyLayer);
+        event.registerLayerDefinition(CARDINAL, CardinalModel::createBodyLayer);
+        event.registerLayerDefinition(BLUEJAY, BluejayModel::createBodyLayer);
     }
 }

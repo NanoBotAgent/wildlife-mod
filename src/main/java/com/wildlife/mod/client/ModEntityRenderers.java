@@ -55,5 +55,12 @@ public class ModEntityRenderers {
     event.registerEntityRenderer(ModEntities.LADYBUG.get(), LadybugRenderer::new);
     event.registerEntityRenderer(ModEntities.DRAGONFLY.get(), DragonflyRenderer::new);
     event.registerEntityRenderer(ModEntities.FIREFLY.get(), FireflyRenderer::new);
+
+    // Birds
+    event.registerEntityRenderer(ModEntities.SPARROW.get(), SparrowRenderer::new);
+    event.registerEntityRenderer(ModEntities.ROBIN.get(), RobinRenderer::new);
+    event.registerEntityRenderer(ModEntities.CROW.get(), CrowRenderer::new);
+    event.registerEntityRenderer(ModEntities.CARDINAL.get(), CardinalRenderer::new);
+    event.registerEntityRenderer(ModEntities.BLUEJAY.get(), BluejayRenderer::new);
     }
 }

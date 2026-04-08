@@ -179,4 +179,35 @@ public class ModEntities {
         .sized(0.15F, 0.1F)
         .clientTrackingRange(4)
         .build(WildlifeMod.MOD_ID + ":firefly"));
+
+    // Birds (small flying)
+    public static final RegistryObject<EntityType<SparrowEntity>> SPARROW =
+    ENTITIES.register("sparrow", () -> EntityType.Builder.of(SparrowEntity::new, MobCategory.AMBIENT)
+        .sized(0.3F, 0.3F)
+        .clientTrackingRange(6)
+        .build(WildlifeMod.MOD_ID + ":sparrow"));
+
+    public static final RegistryObject<EntityType<RobinEntity>> ROBIN =
+    ENTITIES.register("robin", () -> EntityType.Builder.of(RobinEntity::new, MobCategory.AMBIENT)
+        .sized(0.35F, 0.35F)
+        .clientTrackingRange(6)
+        .build(WildlifeMod.MOD_ID + ":robin"));
+
+    public static final RegistryObject<EntityType<CrowEntity>> CROW =
+    ENTITIES.register("crow", () -> EntityType.Builder.of(CrowEntity::new, MobCategory.AMBIENT)
+        .sized(0.4F, 0.4F)
+        .clientTrackingRange(8)
+        .build(WildlifeMod.MOD_ID + ":crow"));
+
+    public static final RegistryObject<EntityType<CardinalEntity>> CARDINAL =
+    ENTITIES.register("cardinal", () -> EntityType.Builder.of(CardinalEntity::new, MobCategory.AMBIENT)
+        .sized(0.35F, 0.35F)
+        .clientTrackingRange(6)
+        .build(WildlifeMod.MOD_ID + ":cardinal"));
+
+    public static final RegistryObject<EntityType<BluejayEntity>> BLUEJAY =
+    ENTITIES.register("bluejay", () -> EntityType.Builder.of(BluejayEntity::new, MobCategory.AMBIENT)
+        .sized(0.35F, 0.35F)
+        .clientTrackingRange(6)
+        .build(WildlifeMod.MOD_ID + ":bluejay"));
 }
