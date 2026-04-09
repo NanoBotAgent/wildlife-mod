@@ -130,7 +130,7 @@ public class PenguinEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.PENGUIN.spawn(level);
+        return WildlifeEntities.PENGUIN.create(level);
     }
 
     @Override
@@ -214,7 +214,7 @@ public class PenguinEntity extends Animal {
 
         public PenguinSlideGoal(PenguinEntity penguin) {
             this.penguin = penguin;
-            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         @Override

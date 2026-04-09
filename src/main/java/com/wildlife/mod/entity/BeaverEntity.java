@@ -107,7 +107,7 @@ public class BeaverEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.BEAVER.spawn(level);
+        return WildlifeEntities.BEAVER.create(level);
     }
 
     @Override
@@ -164,7 +164,7 @@ public class BeaverEntity extends Animal {
 
         public BeaverBuildGoal(BeaverEntity beaver) {
             this.beaver = beaver;
-            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override

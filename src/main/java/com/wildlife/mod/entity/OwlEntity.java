@@ -141,7 +141,7 @@ public class OwlEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.OWL.spawn(level);
+        return WildlifeEntities.OWL.create(level);
     }
 
     @Override
@@ -226,7 +226,7 @@ public class OwlEntity extends Animal {
 
         public OwlFlyGoal(OwlEntity owl) {
             this.owl = owl;
-            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         @Override
@@ -249,7 +249,7 @@ public class OwlEntity extends Animal {
 
         public OwlPerchGoal(OwlEntity owl) {
             this.owl = owl;
-            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.JUMP));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP));
         }
 
         @Override
@@ -262,17 +262,18 @@ public class OwlEntity extends Animal {
             BlockPos pos = owl.blockPosition();
             for (int y = 0; y < 10; y++) {
                 for (int x = -3; x <= 3; x++) {
-                    for (int z = -3; z <= 3; z++) {
-                        BlockPos checkPos = pos.offset(x, y, z);
-                        if (owl.level().getBlockState(checkPos.above()).isAir() &&
-                            !owl.level().getBlockState(checkPos).isAir()) {
-                            owl.perchTarget = checkPos.above();
-                            owl.getNavigation().moveTo(checkPos.above(), 1.0D);
-                            return;
-                        }
-                    }
-                }
+for (int z = -3; z <= 3; z++) {
+            BlockPos checkPos = pos.offset(x, y, z);
+            if (owl.level().getBlockState(checkPos.above()).isAir() &&
+                !owl.level().getBlockState(checkPos).isAir()) {
+                owl.perchTarget = checkPos.above();
+                BlockPos perchPos = checkPos.above();
+                owl.getNavigation().moveTo(perchPos.getX(), perchPos.getY(), perchPos.getZ(), 1.0D);
+                return;
             }
+        }
+    }
+}
         }
 
         @Override

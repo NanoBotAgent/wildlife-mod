@@ -163,7 +163,7 @@ public InteractionResult mobInteract(Player player, InteractionHand hand) {
     }
     
 @Override
-public void positionRider(Entity passenger) {
+protected void positionRider(Entity passenger, Entity.MoveFunction callback) {
     if (this.hasPassenger(passenger)) {
         // Position rider on back
         passenger.setYRot(this.getYRot());
@@ -171,21 +171,21 @@ public void positionRider(Entity passenger) {
         passenger.setPos(this.getX(), this.getY() + 1.8D, this.getZ());
     }
 }
-    
-    @Override
-    public boolean isControlledByLocalInstance() {
-        return this.isVehicle() && this.getControllingPassenger() instanceof Player;
-    }
-    
-    @Override
-    public boolean isPushable() {
-        return !this.isVehicle();
-    }
-    
-    @Override
-    protected boolean canRide(Entity entity) {
-        return true;
-    }
+
+@Override
+public boolean isControlledByLocalInstance() {
+    return this.isVehicle() && this.getControllingPassenger() instanceof Player;
+}
+
+@Override
+public boolean isPushable() {
+    return !this.isVehicle();
+}
+
+@Override
+protected boolean canRide(Entity entity) {
+    return true;
+}
     
     @Nullable
     @Override
@@ -221,7 +221,7 @@ this.setSaddled(input.getBoolean("Saddled", false));
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.OSTRICH.spawn(level);
+        return WildlifeEntities.OSTRICH.create(level);
     }
     
     @Override

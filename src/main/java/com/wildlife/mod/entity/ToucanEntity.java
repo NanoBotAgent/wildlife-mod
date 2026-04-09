@@ -107,7 +107,7 @@ public class ToucanEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.TOUCAN.spawn(level);
+        return WildlifeEntities.TOUCAN.create(level);
     }
 
     @Override
@@ -168,7 +168,7 @@ public class ToucanEntity extends Animal {
 
         public ToucanFlyGoal(ToucanEntity toucan) {
             this.toucan = toucan;
-            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.JUMP));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP));
         }
 
         @Override
@@ -182,16 +182,16 @@ public class ToucanEntity extends Animal {
             
             for (int y = 0; y < 15; y++) {
                 for (int x = -5; x <= 5; x++) {
-                    for (int z = -5; z <= 5; z++) {
-                        BlockPos checkPos = toucan.blockPosition().offset(x, y, z);
-                        if (toucan.level().getBlockState(checkPos).getBlock() instanceof LeavesBlock) {
-                            targetPos = checkPos;
-                            toucan.getNavigation().moveTo(checkPos, 1.0D);
-                            return;
-                        }
-                    }
-                }
+for (int z = -5; z <= 5; z++) {
+            BlockPos checkPos = toucan.blockPosition().offset(x, y, z);
+            if (toucan.level().getBlockState(checkPos).getBlock() instanceof LeavesBlock) {
+                targetPos = checkPos;
+                toucan.getNavigation().moveTo(checkPos.getX(), checkPos.getY(), checkPos.getZ(), 1.0D);
+                return;
             }
+        }
+    }
+}
             
             double x = toucan.getX() + (toucan.random.nextDouble() - 0.5) * 20;
             double y = toucan.getY() + toucan.random.nextDouble() * 8 + 3;

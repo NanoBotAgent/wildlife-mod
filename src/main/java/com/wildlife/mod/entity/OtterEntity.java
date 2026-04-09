@@ -118,7 +118,7 @@ public class OtterEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.OTTER.spawn(level);
+        return WildlifeEntities.OTTER.create(level);
     }
 
     @Override
@@ -193,7 +193,7 @@ public class OtterEntity extends Animal {
 
         public OtterSwimGoal(OtterEntity otter) {
             this.otter = otter;
-            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         @Override

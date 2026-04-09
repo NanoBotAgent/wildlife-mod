@@ -113,7 +113,7 @@ public class FoxEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        FoxEntity baby = WildlifeEntities.FOX.spawn(level);
+        FoxEntity baby = WildlifeEntities.FOX.create(level);
         if (baby != null) {
             baby.setVariant(this.random.nextInt(3));
         }
@@ -181,7 +181,7 @@ public class FoxEntity extends Animal {
 
         public FoxSitGoal(FoxEntity fox) {
             this.fox = fox;
-            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override
@@ -207,7 +207,7 @@ public class FoxEntity extends Animal {
 
         public FoxPounceGoal(FoxEntity fox) {
             this.fox = fox;
-            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.JUMP));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP));
         }
 
         @Override

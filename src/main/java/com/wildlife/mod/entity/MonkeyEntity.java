@@ -140,7 +140,7 @@ public class MonkeyEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.MONKEY.spawn(level);
+        return WildlifeEntities.MONKEY.create(level);
     }
 
     @Override
@@ -213,12 +213,11 @@ public void readAdditionalSaveData(ValueInput input) {
 
 @Override
 public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty,
-    MobSpawnType reason, @Nullable SpawnGroupData spawnData,
-    @Nullable ValueInput dataTag) {
+    MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
     if (spawnData == null) {
         spawnData = new AgeableMob.AgeableMobGroupData(0.1F);
     }
-    return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+    return super.finalizeSpawn(level, difficulty, reason, spawnData);
 }
 
     public static class MonkeyClimbTreeGoal extends Goal {
@@ -227,7 +226,7 @@ public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstanc
 
         public MonkeyClimbTreeGoal(MonkeyEntity monkey) {
             this.monkey = monkey;
-            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.JUMP));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.JUMP));
         }
 
         @Override

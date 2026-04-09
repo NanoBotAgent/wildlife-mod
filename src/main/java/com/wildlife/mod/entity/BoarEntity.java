@@ -87,7 +87,7 @@ public class BoarEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.BOAR.spawn(level);
+        return WildlifeEntities.BOAR.create(level);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class BoarEntity extends Animal {
 
         public BoarChargeGoal(BoarEntity boar) {
             this.boar = boar;
-            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override

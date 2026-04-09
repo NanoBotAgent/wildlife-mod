@@ -101,7 +101,7 @@ public class MeerkatEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.MEERKAT.spawn(level);
+        return WildlifeEntities.MEERKAT.create(level);
     }
 
     @Override
@@ -149,7 +149,7 @@ public class MeerkatEntity extends Animal {
 
         public MeerkatStandGoal(MeerkatEntity meerkat) {
             this.meerkat = meerkat;
-            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override
@@ -176,7 +176,7 @@ public class MeerkatEntity extends Animal {
 
         public MeerkatDigGoal(MeerkatEntity meerkat) {
             this.meerkat = meerkat;
-            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         @Override

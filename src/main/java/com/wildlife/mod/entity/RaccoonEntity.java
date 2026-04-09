@@ -108,7 +108,7 @@ public class RaccoonEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.RACCOON.spawn(level);
+        return WildlifeEntities.RACCOON.create(level);
     }
 
     @Override
@@ -164,7 +164,7 @@ public class RaccoonEntity extends Animal {
 
         public RaccoonWashGoal(RaccoonEntity raccoon) {
             this.raccoon = raccoon;
-            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override
@@ -190,7 +190,7 @@ public class RaccoonEntity extends Animal {
 
         public RaccoonStandGoal(RaccoonEntity raccoon) {
             this.raccoon = raccoon;
-            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         @Override

@@ -113,7 +113,7 @@ public class GoatEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        GoatEntity baby = WildlifeEntities.GOAT.spawn(level);
+        GoatEntity baby = WildlifeEntities.GOAT.create(level);
         if (baby != null) {
             baby.setVariant(this.random.nextInt(2));
         }
@@ -178,7 +178,7 @@ public class GoatEntity extends Animal {
 
         public GoatRamGoal(GoatEntity goat) {
             this.goat = goat;
-            this.setRequiredVelocityMask(EnumSet.of(Flag.MOVE, Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         @Override
@@ -227,7 +227,7 @@ public class GoatEntity extends Animal {
 
         public GoatJumpGoal(GoatEntity goat) {
             this.goat = goat;
-            this.setRequiredVelocityMask(EnumSet.of(Flag.JUMP, Flag.MOVE));
+            this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE));
         }
 
         @Override

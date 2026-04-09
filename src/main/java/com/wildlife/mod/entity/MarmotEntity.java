@@ -96,7 +96,7 @@ public class MarmotEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.MARMOT.spawn(level);
+        return WildlifeEntities.MARMOT.create(level);
     }
 
     @Override
