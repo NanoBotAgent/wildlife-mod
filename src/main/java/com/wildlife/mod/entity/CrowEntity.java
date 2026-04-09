@@ -161,4 +161,8 @@ public class CrowEntity extends Animal {
             return crow.isFlying && targetPos != null && crow.distanceToSqr(targetPos) > 1.0;
         }
     }
+    @Override
+    public boolean isFood(net.minecraft.world.item.ItemStack stack) {
+        return stack.is(net.minecraft.world.item.Items.WHEAT_SEEDS);
+    }
 }

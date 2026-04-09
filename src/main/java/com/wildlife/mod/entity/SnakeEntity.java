@@ -216,7 +216,7 @@ protected SoundEvent getDeathSound() {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        SnakeEntity baby = WildlifeEntities.SNAKE.create(level);
+        SnakeEntity baby = WildlifeEntities.SNAKE.create(level, false);
         if (baby != null) {
             baby.setVariant(this.random.nextInt(3));
         }

@@ -101,7 +101,7 @@ public class MeerkatEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.MEERKAT.create(level);
+        return WildlifeEntities.MEERKAT.create(level, false);
     }
 
     @Override

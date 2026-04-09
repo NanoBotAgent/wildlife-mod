@@ -191,4 +191,8 @@ public class DragonflyEntity extends Animal {
             return dartTime > 0 && targetPos != null && dragonfly.distanceToSqr(targetPos) > 1.0;
         }
     }
+    @Override
+    public boolean isFood(net.minecraft.world.item.ItemStack stack) {
+        return stack.is(net.minecraft.world.item.Items.WHEAT_SEEDS);
+    }
 }

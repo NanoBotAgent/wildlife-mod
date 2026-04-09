@@ -157,4 +157,8 @@ public class LadybugEntity extends Animal {
             return walkTime > 0 && !ladybug.isFlying;
         }
     }
+    @Override
+    public boolean isFood(net.minecraft.world.item.ItemStack stack) {
+        return stack.is(net.minecraft.world.item.Items.WHEAT_SEEDS);
+    }
 }

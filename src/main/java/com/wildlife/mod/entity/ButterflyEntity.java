@@ -194,4 +194,8 @@ public class ButterflyEntity extends Animal {
             return targetPos != null && butterfly.distanceToSqr(targetPos) > 1.0 && butterfly.flutterTimer <= 0;
         }
     }
+    @Override
+    public boolean isFood(net.minecraft.world.item.ItemStack stack) {
+        return stack.is(net.minecraft.world.item.Items.WHEAT_SEEDS);
+    }
 }

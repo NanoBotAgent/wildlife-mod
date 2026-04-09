@@ -195,4 +195,8 @@ public class FireflyEntity extends Animal {
             return targetPos != null && firefly.distanceToSqr(targetPos) > 0.5;
         }
     }
+    @Override
+    public boolean isFood(net.minecraft.world.item.ItemStack stack) {
+        return stack.is(net.minecraft.world.item.Items.WHEAT_SEEDS);
+    }
 }

@@ -107,7 +107,7 @@ public class ToucanEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.TOUCAN.create(level);
+        return WildlifeEntities.TOUCAN.create(level, false);
     }
 
     @Override

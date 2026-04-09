@@ -164,4 +164,8 @@ public class SparrowEntity extends Animal {
             return sparrow.isFlying && targetPos != null && sparrow.distanceToSqr(targetPos) > 1.0;
         }
     }
+    @Override
+    public boolean isFood(net.minecraft.world.item.ItemStack stack) {
+        return stack.is(net.minecraft.world.item.Items.WHEAT_SEEDS);
+    }
 }

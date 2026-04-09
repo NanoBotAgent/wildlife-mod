@@ -87,7 +87,7 @@ public class BoarEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.BOAR.create(level);
+        return WildlifeEntities.BOAR.create(level, false);
     }
 
     @Override
