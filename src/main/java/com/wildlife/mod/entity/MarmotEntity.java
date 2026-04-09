@@ -101,17 +101,17 @@ public class MarmotEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.PIG_AMBIENT;
+        return SoundEvents.PIG_AMBIENT.value();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.PIG_HURT;
+        return SoundEvents.PIG_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.PIG_DEATH;
+        return SoundEvents.PIG_DEATH.value();
     }
 
     @Override

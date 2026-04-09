@@ -107,17 +107,17 @@ public boolean hurt(DamageSource source, float amount) {
     
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.BEE_LOOP;
+        return SoundEvents.BEE_LOOP.value();
     }
     
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.BEE_HURT;
+        return SoundEvents.BEE_HURT.value();
     }
     
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.BEE_DEATH;
+        return SoundEvents.BEE_DEATH.value();
     }
     
     @Override

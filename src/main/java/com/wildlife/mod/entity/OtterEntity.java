@@ -123,17 +123,17 @@ public class OtterEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.DOLPHIN_AMBIENT;
+        return SoundEvents.DOLPHIN_AMBIENT.value();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.DOLPHIN_HURT;
+        return SoundEvents.DOLPHIN_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.DOLPHIN_DEATH;
+        return SoundEvents.DOLPHIN_DEATH.value();
     }
 
     @Override

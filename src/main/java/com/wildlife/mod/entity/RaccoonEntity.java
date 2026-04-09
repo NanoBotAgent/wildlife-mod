@@ -113,17 +113,17 @@ public class RaccoonEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.FOX_AMBIENT; // Close enough
+        return SoundEvents.FOX_AMBIENT.value(); // Close enough
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.FOX_HURT;
+        return SoundEvents.FOX_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.FOX_DEATH;
+        return SoundEvents.FOX_DEATH.value();
     }
 
     @Override

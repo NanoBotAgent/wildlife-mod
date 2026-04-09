@@ -112,17 +112,17 @@ public class BeaverEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.POLAR_BEAR_AMBIENT;
+        return SoundEvents.POLAR_BEAR_AMBIENT.value();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.POLAR_BEAR_HURT;
+        return SoundEvents.POLAR_BEAR_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.POLAR_BEAR_DEATH;
+        return SoundEvents.POLAR_BEAR_DEATH.value();
     }
 
     @Override
