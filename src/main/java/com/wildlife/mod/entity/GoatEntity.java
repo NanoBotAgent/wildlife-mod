@@ -113,7 +113,7 @@ public class GoatEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        GoatEntity baby = WildlifeEntities.GOAT.create(level, false);
+        GoatEntity baby = WildlifeEntities.GOAT.create(level, net.minecraft.world.entity.EntitySpawnReason.BREEDING);
         if (baby != null) {
             baby.setVariant(this.random.nextInt(2));
         }

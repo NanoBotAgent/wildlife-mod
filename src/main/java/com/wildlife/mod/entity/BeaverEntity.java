@@ -107,7 +107,7 @@ public class BeaverEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.BEAVER.create(level, false);
+        return WildlifeEntities.BEAVER.create(level, net.minecraft.world.entity.EntitySpawnReason.BREEDING);
     }
 
     @Override

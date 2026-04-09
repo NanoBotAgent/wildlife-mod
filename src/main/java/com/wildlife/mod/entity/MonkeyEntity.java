@@ -140,7 +140,7 @@ public class MonkeyEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.MONKEY.create(level, false);
+        return WildlifeEntities.MONKEY.create(level, net.minecraft.world.entity.EntitySpawnReason.BREEDING);
     }
 
     @Override

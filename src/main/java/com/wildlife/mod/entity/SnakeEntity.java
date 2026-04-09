@@ -1,6 +1,6 @@
 package com.wildlife.mod.entity;
-import net.minecraft.server.level.ServerLevel;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -17,12 +17,9 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.Rabbit;
-import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.level.Level;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
-
 import org.jetbrains.annotations.Nullable;
 
 public class SnakeEntity extends PathfinderMob {
@@ -70,8 +67,8 @@ public class SnakeEntity extends PathfinderMob {
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Rabbit.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Chicken.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, net.minecraft.world.entity.EntityType.RABBIT, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, net.minecraft.world.entity.EntityType.CHICKEN, true));
     }
     
     @Override
@@ -216,7 +213,7 @@ protected SoundEvent getDeathSound() {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        SnakeEntity baby = WildlifeEntities.SNAKE.create(level, false);
+        SnakeEntity baby = WildlifeEntities.SNAKE.create(level, net.minecraft.world.entity.EntitySpawnReason.BREEDING);
         if (baby != null) {
             baby.setVariant(this.random.nextInt(3));
         }

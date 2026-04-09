@@ -42,6 +42,6 @@ public class DeerEntity extends Animal {
 	@Nullable
 	@Override
 	public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-		return WildlifeEntities.DEER.create(level, false);
+		return WildlifeEntities.DEER.create(level, net.minecraft.world.entity.EntitySpawnReason.BREEDING);
 	}
 }

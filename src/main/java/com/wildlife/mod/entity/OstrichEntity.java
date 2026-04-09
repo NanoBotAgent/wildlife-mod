@@ -225,7 +225,7 @@ this.setSaddled(input.getBoolean("Saddled", false));
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.OSTRICH.create(level, false);
+        return WildlifeEntities.OSTRICH.create(level, net.minecraft.world.entity.EntitySpawnReason.BREEDING);
     }
     
     @Override

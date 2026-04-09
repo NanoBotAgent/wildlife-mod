@@ -108,7 +108,7 @@ public class RaccoonEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.RACCOON.create(level, false);
+        return WildlifeEntities.RACCOON.create(level, net.minecraft.world.entity.EntitySpawnReason.BREEDING);
     }
 
     @Override

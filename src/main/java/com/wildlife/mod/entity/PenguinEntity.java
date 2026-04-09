@@ -130,7 +130,7 @@ public class PenguinEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.PENGUIN.create(level, false);
+        return WildlifeEntities.PENGUIN.create(level, net.minecraft.world.entity.EntitySpawnReason.BREEDING);
     }
 
     @Override
