@@ -89,7 +89,7 @@ public class ToucanEntity extends Animal {
         }
         this.beakOpen = Mth.lerp(0.1F, this.beakOpen, 0);
         
-        if (!this.level().isClientSide()()) {
+        if (!this.level().isClientSide()) {
             if (this.isPerched()) {
                 this.perchTimer--;
                 if (this.perchTimer <= 0) {

@@ -90,7 +90,7 @@ public class MonkeyEntity extends Animal {
             this.armSwing += 0.15F;
         }
         
-        if (!this.level().isClientSide()()) {
+        if (!this.level().isClientSide()) {
             if (this.climbCooldown > 0) {
                 this.climbCooldown--;
             }

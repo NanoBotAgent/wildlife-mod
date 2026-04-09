@@ -77,7 +77,7 @@ public class OtterEntity extends Animal {
         
         this.tailWave += 0.2F;
         
-        if (!this.level().isClientSide()()) {
+        if (!this.level().isClientSide()) {
             if (this.isInWater()) {
                 this.setSwimming(true);
                 

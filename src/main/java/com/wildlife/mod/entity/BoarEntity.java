@@ -69,7 +69,7 @@ public class BoarEntity extends Animal {
     public void tick() {
         super.tick();
         
-        if (!this.level().isClientSide()()) {
+        if (!this.level().isClientSide()) {
             if (this.isCharging()) {
                 this.chargeTimer--;
                 if (this.chargeTimer <= 0) {

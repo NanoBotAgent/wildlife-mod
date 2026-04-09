@@ -76,7 +76,7 @@ public class MeerkatEntity extends Animal {
         
         this.tailWag += 0.15F;
         
-        if (!this.level().isClientSide()()) {
+        if (!this.level().isClientSide()) {
             if (this.isStanding()) {
                 this.standTimer--;
                 if (this.standTimer <= 0) {

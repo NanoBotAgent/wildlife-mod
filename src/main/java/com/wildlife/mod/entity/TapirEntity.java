@@ -79,7 +79,7 @@ public class TapirEntity extends Animal {
         if (this.isInWater()) {
             this.setSwimming(true);
             
-            if (!this.level().isClientSide()()) {
+            if (!this.level().isClientSide()) {
                 if (this.random.nextInt(200) == 0 && !this.isWallowing()) {
                     this.setWallowing(true);
                     this.wallowTimer = 100 + this.random.nextInt(100);

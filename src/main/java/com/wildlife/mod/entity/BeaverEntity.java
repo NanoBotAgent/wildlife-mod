@@ -85,7 +85,7 @@ public class BeaverEntity extends Animal {
             this.setSwimming(false);
         }
         
-        if (!this.level().isClientSide()()) {
+        if (!this.level().isClientSide()) {
             if (this.isBuilding()) {
                 this.buildTimer--;
                 if (this.buildTimer <= 0) {

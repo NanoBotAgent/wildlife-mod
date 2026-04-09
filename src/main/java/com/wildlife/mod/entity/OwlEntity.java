@@ -90,7 +90,7 @@ public class OwlEntity extends Animal {
             this.wingFlap = Mth.lerp(0.1F, this.wingFlap, 0);
         }
 
-        if (!this.level().isClientSide()()) {
+        if (!this.level().isClientSide()) {
             if (this.isPerched()) {
                 this.perchTimer--;
                 if (this.perchTimer <= 0) {

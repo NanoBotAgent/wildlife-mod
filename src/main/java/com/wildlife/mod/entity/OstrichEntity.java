@@ -88,7 +88,7 @@ public class OstrichEntity extends Animal {
             this.setRunning(false);
         }
         
-        if (!this.level().isClientSide()()) {
+        if (!this.level().isClientSide()) {
             if (this.isHeadDown()) {
                 this.headDownTimer--;
                 if (this.headDownTimer <= 0) {
