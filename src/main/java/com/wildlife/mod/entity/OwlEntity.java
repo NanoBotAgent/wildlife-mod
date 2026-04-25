@@ -146,22 +146,22 @@ public class OwlEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.PARROT_AMBIENT.value();
+        return SoundEvents.PARROT_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.PARROT_HURT.value();
+        return SoundEvents.PARROT_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.PARROT_DEATH.value();
+        return SoundEvents.PARROT_DEATH;
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP.value(), 0.15F, 1.0F);
+        this.playSound(SoundEvents.CAT_STEP, 0.15F, 1.0F);
     }
 
     public boolean isFlying() {

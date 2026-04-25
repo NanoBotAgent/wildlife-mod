@@ -111,22 +111,22 @@ public class TapirEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.PIG_AMBIENT.value();
+        return SoundEvents.PIG_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.PIG_HURT.value();
+        return SoundEvents.PIG_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.PIG_DEATH.value();
+        return SoundEvents.PIG_DEATH;
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.COW_STEP.value(), 0.15F, 0.8F);
+        this.playSound(SoundEvents.COW_STEP, 0.15F, 0.8F);
     }
 
     public boolean isSwimming() {

@@ -7,7 +7,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class WildlifeModClient implements ClientModInitializer {
 
@@ -52,14 +52,14 @@ public class WildlifeModClient implements ClientModInitializer {
 	 * Placeholder renderer until proper models are implemented
 	 */
 	private static class PlaceholderRenderer<T extends net.minecraft.world.entity.Entity> extends MobRenderer<T, EntityModel<T>> {
-		private static final ResourceLocation PLACEHOLDER_TEXTURE = WildlifeMod.id("textures/entity/placeholder.png");
+		private static final Identifier PLACEHOLDER_TEXTURE = WildlifeMod.id("textures/entity/placeholder.png");
 
 		public PlaceholderRenderer(EntityRendererProvider.Context context, String entityName) {
 			super(context, new PlaceholderModel<>(), 0.5F);
 		}
 
 		@Override
-		public ResourceLocation getTextureLocation(T entity) {
+		public Identifier getTextureLocation(T entity) {
 			return PLACEHOLDER_TEXTURE;
 		}
 	}

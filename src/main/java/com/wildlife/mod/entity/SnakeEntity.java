@@ -181,13 +181,13 @@ protected SoundEvent getAmbientSound() {
 @Nullable
 @Override
 protected SoundEvent getHurtSound(DamageSource source) {
-    return SoundEvents.SPIDER_HURT.value();
+    return SoundEvents.SPIDER_HURT;
 }
 
 @Nullable
 @Override
 protected SoundEvent getDeathSound() {
-    return SoundEvents.SPIDER_DEATH.value();
+    return SoundEvents.SPIDER_DEATH;
 }
     
     @Override

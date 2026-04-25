@@ -123,7 +123,7 @@ public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (!this.level().isClientSide()) {
             this.setSaddled(true);
             stack.shrink(1);
-            this.playSound(SoundEvents.HORSE_SADDLE.value(), 0.5F, 1.0F);
+            this.playSound(SoundEvents.HORSE_SADDLE, 0.5F, 1.0F);
         }
         return InteractionResult.sidedSuccess(this.level().isClientSide());
     }
@@ -230,22 +230,22 @@ this.setSaddled(input.getBoolean("Saddled", false));
     
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.CHICKEN_AMBIENT.value();
+        return SoundEvents.CHICKEN_AMBIENT;
     }
     
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.CHICKEN_HURT.value();
+        return SoundEvents.CHICKEN_HURT;
     }
     
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.CHICKEN_DEATH.value();
+        return SoundEvents.CHICKEN_DEATH;
     }
     
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAMEL_STEP.value(), 0.15F, 1.0F);
+        this.playSound(SoundEvents.CAMEL_STEP, 0.15F, 1.0F);
     }
     
     public boolean isRunning() {

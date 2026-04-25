@@ -122,22 +122,22 @@ public class FoxEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.FOX_AMBIENT.value();
+        return SoundEvents.FOX_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.FOX_HURT.value();
+        return SoundEvents.FOX_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.FOX_DEATH.value();
+        return SoundEvents.FOX_DEATH;
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.FOX_STEP.value(), 0.15F, 1.0F);
+        this.playSound(SoundEvents.FOX_STEP, 0.15F, 1.0F);
     }
 
     public boolean isSitting() {

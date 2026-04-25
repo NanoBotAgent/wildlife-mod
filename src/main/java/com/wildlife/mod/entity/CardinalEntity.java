@@ -81,17 +81,17 @@ public class CardinalEntity extends Animal {
     
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.PARROT_AMBIENT.value();
+        return SoundEvents.PARROT_AMBIENT;
     }
     
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.PARROT_HURT.value();
+        return SoundEvents.PARROT_HURT;
     }
     
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.PARROT_DEATH.value();
+        return SoundEvents.PARROT_DEATH;
     }
     
     @Override

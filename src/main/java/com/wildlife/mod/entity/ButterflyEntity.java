@@ -95,12 +95,12 @@ public class ButterflyEntity extends Animal {
     
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.BEE_HURT.value();
+        return SoundEvents.BEE_HURT;
     }
     
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.BEE_DEATH.value();
+        return SoundEvents.BEE_DEATH;
     }
     
     @Override

@@ -131,22 +131,22 @@ public class DuckEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.CHICKEN_AMBIENT.value();
+        return SoundEvents.CHICKEN_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.CHICKEN_HURT.value();
+        return SoundEvents.CHICKEN_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.CHICKEN_DEATH.value();
+        return SoundEvents.CHICKEN_DEATH;
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP.value(), 0.15F, 1.5F);
+        this.playSound(SoundEvents.CAT_STEP, 0.15F, 1.5F);
     }
 
     public boolean isSwimming() {

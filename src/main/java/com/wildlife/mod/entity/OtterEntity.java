@@ -123,22 +123,22 @@ public class OtterEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.DOLPHIN_AMBIENT.value();
+        return SoundEvents.DOLPHIN_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.DOLPHIN_HURT.value();
+        return SoundEvents.DOLPHIN_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.DOLPHIN_DEATH.value();
+        return SoundEvents.DOLPHIN_DEATH;
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP.value(), 0.15F, 1.2F);
+        this.playSound(SoundEvents.CAT_STEP, 0.15F, 1.2F);
     }
 
     public boolean isSwimming() {
