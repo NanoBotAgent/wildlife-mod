@@ -103,10 +103,10 @@ public class OwlEntity extends Animal {
                 this.setFlying(false);
             }
             
-            // Night Vision Aura - gives nearby players night vision at night
-            if (this.level().isNight()) {
-                giveNightVisionToNearbyPlayers();
-            }
+                // Night Vision Aura - gives nearby players night vision at night
+                if (!this.level().isDay()) {
+                    giveNightVisionToNearbyPlayers();
+                }
         }
     }
     
@@ -141,27 +141,27 @@ public class OwlEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.OWL.create(level, net.minecraft.world.entity.EntitySpawnReason.BREEDING);
+        return WildlifeEntities.OWL.create(level, EntitySpawnReason.BREEDING);
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.PARROT_AMBIENT;
+        return SoundEvents.PARROT_AMBIENT.value();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.PARROT_HURT;
+        return SoundEvents.PARROT_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.PARROT_DEATH;
+        return SoundEvents.PARROT_DEATH.value();
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.GRASS_STEP.value(), 0.15F, 1.0F);
     }
 
     public boolean isFlying() {

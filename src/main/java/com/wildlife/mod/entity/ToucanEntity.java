@@ -107,27 +107,27 @@ public class ToucanEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.TOUCAN.create(level, net.minecraft.world.entity.EntitySpawnReason.BREEDING);
+        return WildlifeEntities.TOUCAN.create(level, EntitySpawnReason.BREEDING);
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.PARROT_AMBIENT;
+        return SoundEvents.PARROT_AMBIENT.value();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.PARROT_HURT;
+        return SoundEvents.PARROT_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.PARROT_DEATH;
+        return SoundEvents.PARROT_DEATH.value();
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.GRASS_STEP.value(), 0.15F, 1.0F);
     }
 
     public boolean isFlying() {

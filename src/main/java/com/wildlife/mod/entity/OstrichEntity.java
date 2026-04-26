@@ -22,8 +22,6 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -32,30 +30,30 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class OstrichEntity extends Animal {
-    private static final EntityDataAccessor<Boolean> DATA_RUNNING = 
+    private static final EntityDataAccessor<Boolean> DATA_RUNNING =
         SynchedEntityData.defineId(OstrichEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> DATA_HEAD_DOWN = 
+    private static final EntityDataAccessor<Boolean> DATA_HEAD_DOWN =
         SynchedEntityData.defineId(OstrichEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> DATA_SADDLED = 
+    private static final EntityDataAccessor<Boolean> DATA_SADDLED =
         SynchedEntityData.defineId(OstrichEntity.class, EntityDataSerializers.BOOLEAN);
-    
+
     private float legSwing = 0;
     private float neckBob = 0;
     private int headDownTimer = 0;
-    
+
     public OstrichEntity(EntityType<? extends OstrichEntity> type, Level level) {
         super(type, level);
-        this.maxUpStep = 1.0F;
     }
-    
+
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createAnimalAttributes()
             .add(Attributes.MAX_HEALTH, 14.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.35D)
             .add(Attributes.FOLLOW_RANGE, 32.0D)
-            .add(Attributes.ATTACK_DAMAGE, 2.0D);
+            .add(Attributes.ATTACK_DAMAGE, 2.0D)
+            .add(Attributes.STEP_HEIGHT, 1.0D);
     }
-    
+
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
@@ -63,7 +61,7 @@ public class OstrichEntity extends Animal {
         builder.define(DATA_HEAD_DOWN, false);
         builder.define(DATA_SADDLED, false);
     }
-    
+
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
@@ -74,14 +72,14 @@ public class OstrichEntity extends Animal {
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 16.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        
+
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
     }
-    
+
     @Override
     public void tick() {
         super.tick();
-        
+
         if (this.moveControl.hasWanted()) {
             this.legSwing += 0.4F;
             this.neckBob += 0.2F;
@@ -91,7 +89,7 @@ public class OstrichEntity extends Animal {
             this.neckBob = Mth.lerp(0.1F, this.neckBob, 0);
             this.setRunning(false);
         }
-        
+
         if (!this.level().isClientSide()) {
             if (this.isHeadDown()) {
                 this.headDownTimer--;
@@ -99,98 +97,91 @@ public class OstrichEntity extends Animal {
                     this.setHeadDown(false);
                 }
             }
-            
+
             if (this.random.nextInt(400) == 0 && !this.isHeadDown()) {
                 this.setHeadDown(true);
                 this.headDownTimer = 60 + this.random.nextInt(60);
             }
         }
     }
-    
+
     // === Rideable functionality ===
-    
+
     @Override
     public boolean isFood(ItemStack stack) {
         return stack.is(Items.WHEAT_SEEDS) || stack.is(Items.MELON_SEEDS) || stack.is(Items.PUMPKIN_SEEDS);
     }
-    
-@Override
-public InteractionResult mobInteract(Player player, InteractionHand hand) {
-    ItemStack stack = player.getItemInHand(hand);
 
-    // Saddle interaction
-    if (stack.is(Items.SADDLE) && !this.isSaddled() && !this.isBaby()) {
-        if (!this.level().isClientSide()) {
-            this.setSaddled(true);
-            stack.shrink(1);
-            this.playSound(SoundEvents.HORSE_SADDLE, 0.5F, 1.0F);
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+
+        // Saddle interaction
+        if (stack.is(Items.SADDLE) && !this.isSaddled() && !this.isBaby()) {
+            if (!this.level().isClientSide()) {
+                this.setSaddled(true);
+                stack.shrink(1);
+                this.playSound(SoundEvents.HORSE_SADDLE.value(), 0.5F, 1.0F);
+            }
+            return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
         }
-        return InteractionResult.sidedSuccess(this.level().isClientSide());
+
+        // Mount if saddled
+        if (this.isSaddled() && !this.isBaby()) {
+            if (!this.level().isClientSide()) {
+                player.startRiding(this);
+            }
+            return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
+        }
+
+        return super.mobInteract(player, hand);
     }
 
-    // Mount if saddled
-    if (this.isSaddled() && !this.isBaby()) {
-        if (!this.level().isClientSide()) {
-            player.startRiding(this);
-        }
-        return InteractionResult.sidedSuccess(this.level().isClientSide());
-    }
-
-    return super.mobInteract(player, hand);
-}
-    
     @Override
     public void travel(Vec3 travelVector) {
         if (this.isSaddled() && this.isVehicle() && this.getControllingPassenger() instanceof Player player) {
-            // Player-controlled movement
             this.setYRot(player.getYRot());
             this.yRotO = this.getYRot();
             this.setXRot(player.getXRot() * 0.5F);
-            
+
             float speed = (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED);
             if (this.isSprinting()) {
-                speed *= 1.5F; // Sprint boost
+                speed *= 1.5F;
             }
-            
+
             if (player.zza > 0) {
                 this.setSpeed(speed);
             } else if (player.zza < 0) {
-                this.setSpeed(speed * 0.25F); // Slower backwards
+                this.setSpeed(speed * 0.25F);
             } else {
                 this.setSpeed(0);
             }
-            
+
             super.travel(new Vec3(0, travelVector.y, travelVector.z));
         } else {
             super.travel(travelVector);
         }
     }
-    
-@Override
-protected void positionRider(Entity passenger, Entity.MoveFunction callback) {
-    if (this.hasPassenger(passenger)) {
-        // Position rider on back
-        passenger.setYRot(this.getYRot());
-        passenger.setYHeadRot(this.getYHeadRot());
-        passenger.setPos(this.getX(), this.getY() + 1.8D, this.getZ());
+
+    @Override
+    protected void positionRider(Entity passenger, Entity.MoveFunction callback) {
+        if (this.hasPassenger(passenger)) {
+            passenger.setYRot(this.getYRot());
+            passenger.setYHeadRot(this.getYHeadRot());
+            callback.accept(passenger, this.getX(), this.getY() + 1.8D, this.getZ());
+        }
     }
-}
 
-@Override
-public boolean isControlledByLocalInstance() {
-    return this.isVehicle() && this.getControllingPassenger() instanceof Player;
-}
+    @Override
+    public boolean isPushable() {
+        return !this.isVehicle();
+    }
 
-@Override
-public boolean isPushable() {
-    return !this.isVehicle();
-}
+    @Override
+    protected boolean canRide(Entity entity) {
+        return true;
+    }
 
-@Override
-protected boolean canRide(Entity entity) {
-    return true;
-}
-    
     @Nullable
     @Override
     public LivingEntity getControllingPassenger() {
@@ -199,75 +190,75 @@ protected boolean canRide(Entity entity) {
         }
         return null;
     }
-    
+
     public boolean isSaddled() {
         return this.entityData.get(DATA_SADDLED);
     }
-    
+
     public void setSaddled(boolean saddled) {
         this.entityData.set(DATA_SADDLED, saddled);
     }
-    
-@Override
-public void addAdditionalSaveData(ValueOutput output) {
-super.addAdditionalSaveData(output);
-output.putBoolean("Saddled", this.isSaddled());
-}
 
-@Override
-public void readAdditionalSaveData(ValueInput input) {
-super.readAdditionalSaveData(input);
-this.setSaddled(input.getBoolean("Saddled", false));
-}
-    
+    @Override
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putBoolean("Saddled", this.isSaddled());
+    }
+
+    @Override
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.setSaddled(input.getBooleanOr("Saddled", false));
+    }
+
     // === End rideable ===
-    
+
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.OSTRICH.create(level, net.minecraft.world.entity.EntitySpawnReason.BREEDING);
+        return WildlifeEntities.OSTRICH.create(level, EntitySpawnReason.BREEDING);
     }
-    
+
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.CHICKEN_AMBIENT;
+        return SoundEvents.CHICKEN_AMBIENT.value();
     }
-    
+
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.CHICKEN_HURT;
+        return SoundEvents.CHICKEN_HURT.value();
     }
-    
+
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.CHICKEN_DEATH;
+        return SoundEvents.CHICKEN_DEATH.value();
     }
-    
+
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAMEL_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.CAMEL_STEP.value(), 0.15F, 1.0F);
     }
-    
+
     public boolean isRunning() {
         return this.entityData.get(DATA_RUNNING);
     }
-    
+
     public void setRunning(boolean running) {
         this.entityData.set(DATA_RUNNING, running);
     }
-    
+
     public boolean isHeadDown() {
         return this.entityData.get(DATA_HEAD_DOWN);
     }
-    
+
     public void setHeadDown(boolean headDown) {
         this.entityData.set(DATA_HEAD_DOWN, headDown);
     }
-    
+
     public float getLegSwing(float partialTick) {
         return Mth.sin(this.legSwing + partialTick) * 0.5F;
     }
-    
+
     public float getNeckBob(float partialTick) {
         return Mth.sin(this.neckBob + partialTick) * 0.1F;
     }

@@ -1,6 +1,6 @@
 package com.wildlife.mod.entity;
-import net.minecraft.server.level.ServerLevel;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
@@ -18,25 +18,25 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.DifficultyInstance;
 
 import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 
 public class MonkeyEntity extends Animal {
-    private static final EntityDataAccessor<Boolean> DATA_IS_CLIMBING = 
+    private static final EntityDataAccessor<Boolean> DATA_IS_CLIMBING =
         SynchedEntityData.defineId(MonkeyEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> DATA_IS_SITTING = 
+    private static final EntityDataAccessor<Boolean> DATA_IS_SITTING =
         SynchedEntityData.defineId(MonkeyEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> DATA_VARIANT = 
+    private static final EntityDataAccessor<Integer> DATA_VARIANT =
         SynchedEntityData.defineId(MonkeyEntity.class, EntityDataSerializers.INT);
-    
+
     private int sitTimer = 0;
     private int climbCooldown = 0;
     private float tailSwing = 0;
@@ -44,7 +44,6 @@ public class MonkeyEntity extends Animal {
 
     public MonkeyEntity(EntityType<? extends MonkeyEntity> type, Level level) {
         super(type, level);
-        this.setMaxUpStep(1.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -52,7 +51,8 @@ public class MonkeyEntity extends Animal {
             .add(Attributes.MAX_HEALTH, 8.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.3D)
             .add(Attributes.FOLLOW_RANGE, 24.0D)
-            .add(Attributes.JUMP_STRENGTH, 1.5D);
+            .add(Attributes.JUMP_STRENGTH, 1.5D)
+            .add(Attributes.STEP_HEIGHT, 1.0D);
     }
 
     @Override
@@ -75,38 +75,38 @@ public class MonkeyEntity extends Animal {
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 12.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(9, new MonkeySitGoal(this));
-        
+
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
     }
 
     @Override
     public void tick() {
         super.tick();
-        
+
         this.tailSwing += 0.15F;
         if (this.isClimbing()) {
             this.armSwing += 0.3F;
         } else if (this.moveControl.hasWanted()) {
             this.armSwing += 0.15F;
         }
-        
+
         if (!this.level().isClientSide()) {
             if (this.climbCooldown > 0) {
                 this.climbCooldown--;
             }
-            
+
             if (this.random.nextInt(400) == 0 && !this.isClimbing() && !this.isSitting()) {
                 this.setSitting(true);
                 this.sitTimer = 100 + this.random.nextInt(200);
             }
-            
+
             if (this.isSitting()) {
                 this.sitTimer--;
                 if (this.sitTimer <= 0 || this.isInWater()) {
                     this.setSitting(false);
                 }
             }
-            
+
             if (this.isClimbing()) {
                 if (!this.horizontalCollision && !this.verticalCollision) {
                     this.setClimbing(false);
@@ -140,27 +140,27 @@ public class MonkeyEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.MONKEY.create(level, net.minecraft.world.entity.EntitySpawnReason.BREEDING);
+        return WildlifeEntities.MONKEY.create(level, EntitySpawnReason.BREEDING);
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.FOX_AMBIENT;
+        return SoundEvents.FOX_AMBIENT.value();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.FOX_HURT;
+        return SoundEvents.FOX_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.FOX_DEATH;
+        return SoundEvents.FOX_DEATH.value();
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAT_STEP, 0.15F, 1.2F);
+        this.playSound(SoundEvents.WOOD_STEP.value(), 0.15F, 1.2F);
     }
 
     public boolean isClimbing() {
@@ -195,30 +195,31 @@ public class MonkeyEntity extends Animal {
         return Mth.sin(this.armSwing + partialTick) * 0.5F;
     }
 
-@Override
-public void addAdditionalSaveData(ValueOutput output) {
-    super.addAdditionalSaveData(output);
-    output.putBoolean("Climbing", this.isClimbing());
-    output.putBoolean("Sitting", this.isSitting());
-    output.putInt("Variant", this.getVariant());
-}
-
-@Override
-public void readAdditionalSaveData(ValueInput input) {
-    super.readAdditionalSaveData(input);
-    this.setClimbing(input.getBoolean("Climbing", false));
-    this.setSitting(input.getBoolean("Sitting", false));
-    this.setVariant(input.getInt("Variant", 0));
-}
-
-@Override
-public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty,
-    MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
-    if (spawnData == null) {
-        spawnData = new AgeableMob.AgeableMobGroupData(0.1F);
+    @Override
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putBoolean("Climbing", this.isClimbing());
+        output.putBoolean("Sitting", this.isSitting());
+        output.putInt("Variant", this.getVariant());
     }
-    return super.finalizeSpawn(level, difficulty, reason, spawnData);
-}
+
+    @Override
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.setClimbing(input.getBooleanOr("Climbing", false));
+        this.setSitting(input.getBooleanOr("Sitting", false));
+        this.setVariant(input.getIntOr("Variant", 0));
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty,
+            EntitySpawnReason reason, @Nullable SpawnGroupData spawnData) {
+        if (spawnData == null) {
+            spawnData = new AgeableMob.AgeableMobGroupData(0.1F);
+        }
+        return super.finalizeSpawn(level, difficulty, reason, spawnData);
+    }
 
     public static class MonkeyClimbTreeGoal extends Goal {
         private final MonkeyEntity monkey;
@@ -233,7 +234,7 @@ public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstanc
         public boolean canUse() {
             if (monkey.climbCooldown > 0 || monkey.isSitting()) return false;
             if (monkey.random.nextInt(100) != 0) return false;
-            
+
             BlockPos pos = monkey.blockPosition();
             for (int y = 0; y < 10; y++) {
                 for (int x = -3; x <= 3; x++) {
@@ -261,7 +262,7 @@ public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstanc
             if (monkey.horizontalCollision && monkey.climbCooldown <= 0) {
                 monkey.setClimbing(true);
             }
-            
+
             if (monkey.isClimbing()) {
                 monkey.setDeltaMovement(0, 0.15D, 0);
             }

@@ -5,7 +5,9 @@ import com.wildlife.mod.item.WildlifeItems;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import org.slf4j.Logger;
@@ -79,10 +81,11 @@ public class WildlifeMod implements ModInitializer {
     }
 
     private static <T extends EntityType<?>> void registerEntity(String name, T entity) {
-        Registry.register(BuiltInRegistries.ENTITY_TYPE, Identifier.parse(MOD_ID + ":" + name), entity);
+        ResourceKey<EntityType<?>> key = ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(MOD_ID, name));
+        Registry.register(BuiltInRegistries.ENTITY_TYPE, key, entity);
     }
 
     public static Identifier id(String path) {
-        return Identifier.parse(MOD_ID + ":" + path);
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 }

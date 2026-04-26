@@ -11,6 +11,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -95,9 +96,7 @@ public class FireflyEntity extends Animal {
     @Override
     public void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
-        if (tag.contains("Variant")) {
-            this.entityData.set(DATA_VARIANT, input.getInt("Variant", 0));
-        }
+        this.entityData.set(DATA_VARIANT, input.getIntOr("Variant", 0));
     }
     
     @Override
@@ -122,12 +121,12 @@ public class FireflyEntity extends Animal {
     
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.BEE_HURT;
+        return SoundEvents.BEE_HURT.value();
     }
-    
+
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.BEE_DEATH;
+        return SoundEvents.BEE_DEATH.value();
     }
     
     @Override

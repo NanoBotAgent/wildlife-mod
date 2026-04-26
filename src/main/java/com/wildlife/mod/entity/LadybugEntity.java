@@ -101,12 +101,12 @@ public class LadybugEntity extends Animal {
     
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.BEE_HURT;
+        return SoundEvents.BEE_HURT.value();
     }
-    
+
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.BEE_DEATH;
+        return SoundEvents.BEE_DEATH.value();
     }
     
     @Override

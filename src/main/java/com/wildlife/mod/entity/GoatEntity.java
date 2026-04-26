@@ -43,7 +43,6 @@ public class GoatEntity extends Animal {
 
     public GoatEntity(EntityType<? extends GoatEntity> type, Level level) {
         super(type, level);
-        this.maxUpStep = 1.2F; // Can climb steep terrain
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -52,7 +51,8 @@ public class GoatEntity extends Animal {
             .add(Attributes.MOVEMENT_SPEED, 0.25D)
             .add(Attributes.FOLLOW_RANGE, 24.0D)
             .add(Attributes.ATTACK_DAMAGE, 2.0D)
-            .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D);
+            .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
+            .add(Attributes.STEP_HEIGHT, 1.2D);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class GoatEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        GoatEntity baby = WildlifeEntities.GOAT.create(level, net.minecraft.world.entity.EntitySpawnReason.BREEDING);
+        GoatEntity baby = WildlifeEntities.GOAT.create(level, EntitySpawnReason.BREEDING);
         if (baby != null) {
             baby.setVariant(this.random.nextInt(2));
         }
@@ -122,22 +122,22 @@ public class GoatEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.GOAT_AMBIENT;
+        return SoundEvents.GOAT_AMBIENT.value();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.GOAT_HURT;
+        return SoundEvents.GOAT_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.GOAT_DEATH;
+        return SoundEvents.GOAT_DEATH.value();
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.SHEEP_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.SHEEP_STEP.value(), 0.15F, 1.0F);
     }
 
     public boolean isRamming() {

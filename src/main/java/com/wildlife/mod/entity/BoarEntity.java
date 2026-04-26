@@ -1,6 +1,6 @@
 package com.wildlife.mod.entity;
-import net.minecraft.server.level.ServerLevel;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
@@ -24,12 +24,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
-import net.minecraft.server.level.ServerLevel;
+import java.util.EnumSet;
 
 public class BoarEntity extends Animal {
-    private static final EntityDataAccessor<Boolean> DATA_CHARGING = 
+    private static final EntityDataAccessor<Boolean> DATA_CHARGING =
         SynchedEntityData.defineId(BoarEntity.class, EntityDataSerializers.BOOLEAN);
-    
+
     private int chargeTimer = 0;
     private Entity chargeTarget = null;
 
@@ -61,14 +61,14 @@ public class BoarEntity extends Animal {
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        
+
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
     }
 
     @Override
     public void tick() {
         super.tick();
-        
+
         if (!this.level().isClientSide()) {
             if (this.isCharging()) {
                 this.chargeTimer--;
@@ -87,27 +87,27 @@ public class BoarEntity extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob parent) {
-        return WildlifeEntities.BOAR.create(level, net.minecraft.world.entity.EntitySpawnReason.BREEDING);
+        return WildlifeEntities.BOAR.create(level, EntitySpawnReason.BREEDING);
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.PIG_AMBIENT;
+        return SoundEvents.PIG_AMBIENT.value();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.PIG_HURT;
+        return SoundEvents.PIG_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.PIG_DEATH;
+        return SoundEvents.PIG_DEATH.value();
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.PIG_STEP, 0.15F, 0.8F);
+        this.playSound(SoundEvents.PIG_STEP.value(), 0.15F, 0.8F);
     }
 
     public boolean isCharging() {
@@ -136,7 +136,7 @@ public class BoarEntity extends Animal {
         @Override
         public boolean canUse() {
             if (boar.isBaby() || boar.isCharging() || cooldown > 0) return false;
-            
+
             LivingEntity target = boar.getLastHurtByMob();
             if (target != null && target.distanceTo(boar) < 8.0D) {
                 return true;
@@ -153,7 +153,7 @@ public class BoarEntity extends Animal {
         public void tick() {
             if (boar.chargeTarget != null && boar.chargeTarget.isAlive()) {
                 boar.getNavigation().moveTo(boar.chargeTarget, 1.8D);
-                
+
                 if (boar.distanceTo(boar.chargeTarget) < 1.5D) {
                     boar.chargeTarget.hurt(boar.damageSources().mobAttack(boar), 3.0F);
                     boar.setCharging(false);

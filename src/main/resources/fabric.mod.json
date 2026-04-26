@@ -14,21 +14,14 @@
 	"license": "MIT",
 	"icon": "assets/wildlife/icon.png",
 	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"com.wildlife.mod.WildlifeMod"
-		],
-		"client": [
-			"com.wildlife.mod.client.WildlifeModClient"
-		]
-	},
-	"mixins": [
-		"wildlife.mixins.json",
-		{
-			"config": "wildlife.client.mixins.json",
-			"environment": "client"
-		}
-	],
+  "entrypoints": {
+    "main": [
+      "com.wildlife.mod.WildlifeMod"
+    ]
+  },
+  "mixins": [
+    "wildlife.mixins.json"
+  ],
 	"depends": {
 		"fabricloader": ">=0.18.6",
 		"minecraft": "~26.1.1",
