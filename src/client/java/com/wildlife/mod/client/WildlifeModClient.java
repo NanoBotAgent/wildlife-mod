@@ -58,17 +58,10 @@ public class WildlifeModClient implements ClientModInitializer {
             super(context);
         }
 
-        @Override
         public EntityRenderState createRenderState() {
             return new EntityRenderState();
         }
 
-        @Override
-        public void extractRenderState(Entity entity, EntityRenderState state, float partialTick) {
-            super.extractRenderState(entity, state, partialTick);
-        }
-
-        @Override
         public Identifier getTextureLocation(EntityRenderState state) {
             return WildlifeMod.id("textures/entity/placeholder.png");
         }
