@@ -8,7 +8,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -26,6 +25,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.EntitySpawnReason;
 
 public class RaccoonEntity extends Animal {
     private static final EntityDataAccessor<Boolean> DATA_WASHING = 
@@ -114,22 +115,22 @@ public class RaccoonEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.FOX_AMBIENT.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.fox.ambient"));
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.FOX_HURT.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.fox.hurt"));
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.FOX_DEATH.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.fox.death"));
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.GRASS_STEP.value(), 0.15F, 1.0F);
+        this.playSound(SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "block.grass.step")), 0.15F, 1.0F);
     }
 
     public boolean isWashing() {

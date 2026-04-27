@@ -9,7 +9,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -29,6 +28,8 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.EntitySpawnReason;
 
 public class BeaverEntity extends Animal {
     private static final EntityDataAccessor<Boolean> DATA_SWIMMING = 
@@ -112,22 +113,22 @@ public class BeaverEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.POLAR_BEAR_AMBIENT.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.polar_bear.ambient"));
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.POLAR_BEAR_HURT.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.polar_bear.hurt"));
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.POLAR_BEAR_DEATH.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.polar_bear.death"));
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.GRASS_STEP.value(), 0.15F, 0.8F);
+        this.playSound(SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "block.grass.step")), 0.15F, 0.8F);
     }
 
     public boolean isSwimming() {
@@ -182,7 +183,7 @@ public class BeaverEntity extends Animal {
                 BlockPos checkPos = waterPos.relative(dir);
                 if (beaver.level().getBlockState(checkPos).isAir()) {
                     beaver.buildTarget = checkPos;
-                    beaver.getNavigation().moveTo(checkPos, 1.0D);
+                    beaver.getNavigation().moveTo(checkPos.getX(), checkPos.getY(), checkPos.getZ(), 1.0D);
                     return;
                 }
             }

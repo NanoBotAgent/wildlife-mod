@@ -9,7 +9,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -21,6 +20,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public class FireflyEntity extends Animal {
     private static final EntityDataAccessor<Boolean> DATA_GLOWING = 
@@ -121,12 +123,12 @@ public class FireflyEntity extends Animal {
     
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.BEE_HURT.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.bee.hurt"));
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.BEE_DEATH.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.bee.death"));
     }
     
     @Override

@@ -8,7 +8,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -28,6 +27,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.EntitySpawnReason;
 
 public class OstrichEntity extends Animal {
     private static final EntityDataAccessor<Boolean> DATA_RUNNING =
@@ -121,7 +122,7 @@ public class OstrichEntity extends Animal {
             if (!this.level().isClientSide()) {
                 this.setSaddled(true);
                 stack.shrink(1);
-                this.playSound(SoundEvents.HORSE_SADDLE.value(), 0.5F, 1.0F);
+                this.playSound(SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.horse.saddle")), 0.5F, 1.0F);
             }
             return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
         }
@@ -221,22 +222,22 @@ public class OstrichEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.CHICKEN_AMBIENT.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.chicken.ambient"));
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.CHICKEN_HURT.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.chicken.hurt"));
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.CHICKEN_DEATH.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.chicken.death"));
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CAMEL_STEP.value(), 0.15F, 1.0F);
+        this.playSound(SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.camel.step")), 0.15F, 1.0F);
     }
 
     public boolean isRunning() {

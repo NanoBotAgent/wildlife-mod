@@ -8,7 +8,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -26,6 +25,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.EntitySpawnReason;
 
 public class DuckEntity extends Animal {
     private static final EntityDataAccessor<Boolean> DATA_SWIMMING = 
@@ -131,22 +132,22 @@ public class DuckEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.CHICKEN_AMBIENT.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.chicken.ambient"));
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.CHICKEN_HURT.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.chicken.hurt"));
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.CHICKEN_DEATH.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.chicken.death"));
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.GRASS_STEP.value(), 0.15F, 1.5F);
+        this.playSound(SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "block.grass.step")), 0.15F, 1.5F);
     }
 
     public boolean isSwimming() {

@@ -7,7 +7,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -22,6 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.resources.Identifier;
 
 public class SnakeEntity extends PathfinderMob {
     private static final EntityDataAccessor<Integer> VARIANT =
@@ -68,8 +68,8 @@ public class SnakeEntity extends PathfinderMob {
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, net.minecraft.world.entity.animal.Rabbit.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, net.minecraft.world.entity.animal.Chicken.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, net.minecraft.world.entity.animal.rabbit.Rabbit.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, net.minecraft.world.entity.animal.chicken.Chicken.class, true));
     }
 
     @Override
@@ -169,19 +169,19 @@ public class SnakeEntity extends PathfinderMob {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isHissing() ? SoundEvents.PHANTOM_FLAP.value() : SoundEvents.SPIDER_AMBIENT.value();
+        return this.isHissing() ? SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.phantom.flap")) : SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.spider.ambient"));
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.SPIDER_HURT.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.spider.hurt"));
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.SPIDER_DEATH.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.spider.death"));
     }
 
     @Override
@@ -197,27 +197,5 @@ public class SnakeEntity extends PathfinderMob {
     @Override
     protected void pushEntities() {
         // Snakes don't push other entities
-    }
-
-    @Override
-    public boolean isFood(net.minecraft.world.item.ItemStack stack) {
-        return stack.is(net.minecraft.world.item.Items.RABBIT) || stack.is(net.minecraft.world.item.Items.CHICKEN);
-    }
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        SnakeEntity baby = WildlifeEntities.SNAKE.create(level, EntitySpawnReason.BREEDING);
-        if (baby != null) {
-            baby.setVariant(this.random.nextInt(3));
-        }
-        return baby;
-    }
-
-    @Override
-    public void travel(Vec3 travelVector) {
-        if (this.isEffectiveAi() || this.isControlledByLocalInstance()) {
-            super.travel(travelVector);
-        }
     }
 }

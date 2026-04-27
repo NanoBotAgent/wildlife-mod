@@ -8,7 +8,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -25,6 +24,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.EntitySpawnReason;
 
 public class BoarEntity extends Animal {
     private static final EntityDataAccessor<Boolean> DATA_CHARGING =
@@ -92,22 +93,22 @@ public class BoarEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.PIG_AMBIENT.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.pig.ambient"));
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.PIG_HURT.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.pig.hurt"));
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.PIG_DEATH.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.pig.death"));
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.PIG_STEP.value(), 0.15F, 0.8F);
+        this.playSound(SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.pig.step")), 0.15F, 0.8F);
     }
 
     public boolean isCharging() {

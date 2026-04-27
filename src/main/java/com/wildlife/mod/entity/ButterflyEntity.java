@@ -4,7 +4,6 @@ import net.minecraft.server.level.ServerLevel;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -17,6 +16,9 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 import java.util.Random;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public class ButterflyEntity extends Animal {
     private static final int[] VARIANT_COLORS = {0xFF6B35, 0x4ECDC4, 0xFFE66D, 0x95E1D3, 0xF38181};
@@ -96,12 +98,12 @@ public class ButterflyEntity extends Animal {
     
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.BEE_HURT.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.bee.hurt"));
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.BEE_DEATH.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.bee.death"));
     }
     
     @Override

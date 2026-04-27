@@ -8,7 +8,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -27,6 +26,8 @@ import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.EntitySpawnReason;
 
 public class GoatEntity extends Animal {
     private static final EntityDataAccessor<Boolean> DATA_RAMMING = 
@@ -122,22 +123,22 @@ public class GoatEntity extends Animal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.GOAT_AMBIENT.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.goat.ambient"));
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.GOAT_HURT.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.goat.hurt"));
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.GOAT_DEATH.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.goat.death"));
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.SHEEP_STEP.value(), 0.15F, 1.0F);
+        this.playSound(SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.sheep.step")), 0.15F, 1.0F);
     }
 
     public boolean isRamming() {
@@ -203,7 +204,7 @@ public class GoatEntity extends Animal {
         public void tick() {
             if (target != null && target.isAlive()) {
                 goat.getLookControl().setLookAt(target);
-                goat.getNavigation().moveTo(target, 1.5D);
+                goat.getNavigation().moveTo(target.getX(), target.getY(), target.getZ(), 1.5D);
                 
                 if (goat.distanceTo(target) < 1.5D && goat.ramChargeTime > 10) {
                     // Ram impact

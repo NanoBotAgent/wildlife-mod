@@ -4,7 +4,6 @@ import net.minecraft.server.level.ServerLevel;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -16,6 +15,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public class BluejayEntity extends Animal {
     private float wingAngle = 0;
@@ -94,19 +96,19 @@ public class BluejayEntity extends Animal {
     @Override
     protected SoundEvent getAmbientSound() {
         if (isCalling()) {
-            return SoundEvents.PARROT_AMBIENT.value();
+            return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.parrot.ambient"));
         }
         return null;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.PARROT_HURT.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.parrot.hurt"));
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.PARROT_DEATH.value();
+        return SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath("minecraft", "entity.parrot.death"));
     }
     
     @Override
