@@ -5,80 +5,72 @@ import com.wildlife.mod.entity.WildlifeEntities;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.Entity;
 
 public class WildlifeModClient implements ClientModInitializer {
 
-	@Override
-	public void onInitializeClient() {
-		// Register entity renderers
-		// These will use placeholder renderers until proper models are created
+    @Override
+    public void onInitializeClient() {
+        // Register placeholder entity renderers
+        // These render nothing visible but allow the mod to compile
+        // Proper models and renderers will be added later
+        EntityRendererRegistry.register(WildlifeEntities.DEER, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.BOAR, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.FOX, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.RACCOON, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.BADGER, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.MONKEY, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.TAPIR, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.TOUCAN, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.MEERKAT, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.OSTRICH, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.OTTER, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.BEAVER, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.DUCK, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.MARMOT, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.GOAT, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.PENGUIN, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.OWL, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.SNAKE, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.BUTTERFLY, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.BEE, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.LADYBUG, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.DRAGONFLY, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.FIREFLY, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.SPARROW, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.ROBIN, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.CROW, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.CARDINAL, PlaceholderRenderer::new);
+        EntityRendererRegistry.register(WildlifeEntities.BLUEJAY, PlaceholderRenderer::new);
 
-		EntityRendererRegistry.register(WildlifeEntities.DEER, context -> new PlaceholderRenderer<>(context, "deer"));
-		EntityRendererRegistry.register(WildlifeEntities.BOAR, context -> new PlaceholderRenderer<>(context, "boar"));
-		EntityRendererRegistry.register(WildlifeEntities.FOX, context -> new PlaceholderRenderer<>(context, "fox"));
-		EntityRendererRegistry.register(WildlifeEntities.RACCOON, context -> new PlaceholderRenderer<>(context, "raccoon"));
-		EntityRendererRegistry.register(WildlifeEntities.BADGER, context -> new PlaceholderRenderer<>(context, "badger"));
-		EntityRendererRegistry.register(WildlifeEntities.MONKEY, context -> new PlaceholderRenderer<>(context, "monkey"));
-		EntityRendererRegistry.register(WildlifeEntities.TAPIR, context -> new PlaceholderRenderer<>(context, "tapir"));
-		EntityRendererRegistry.register(WildlifeEntities.TOUCAN, context -> new PlaceholderRenderer<>(context, "toucan"));
-		EntityRendererRegistry.register(WildlifeEntities.MEERKAT, context -> new PlaceholderRenderer<>(context, "meerkat"));
-		EntityRendererRegistry.register(WildlifeEntities.OSTRICH, context -> new PlaceholderRenderer<>(context, "ostrich"));
-		EntityRendererRegistry.register(WildlifeEntities.OTTER, context -> new PlaceholderRenderer<>(context, "otter"));
-		EntityRendererRegistry.register(WildlifeEntities.BEAVER, context -> new PlaceholderRenderer<>(context, "beaver"));
-		EntityRendererRegistry.register(WildlifeEntities.DUCK, context -> new PlaceholderRenderer<>(context, "duck"));
-		EntityRendererRegistry.register(WildlifeEntities.MARMOT, context -> new PlaceholderRenderer<>(context, "marmot"));
-		EntityRendererRegistry.register(WildlifeEntities.GOAT, context -> new PlaceholderRenderer<>(context, "goat"));
-		EntityRendererRegistry.register(WildlifeEntities.PENGUIN, context -> new PlaceholderRenderer<>(context, "penguin"));
-		EntityRendererRegistry.register(WildlifeEntities.OWL, context -> new PlaceholderRenderer<>(context, "owl"));
-		EntityRendererRegistry.register(WildlifeEntities.SNAKE, context -> new PlaceholderRenderer<>(context, "snake"));
-		EntityRendererRegistry.register(WildlifeEntities.BUTTERFLY, context -> new PlaceholderRenderer<>(context, "butterfly"));
-		EntityRendererRegistry.register(WildlifeEntities.BEE, context -> new PlaceholderRenderer<>(context, "bee"));
-		EntityRendererRegistry.register(WildlifeEntities.LADYBUG, context -> new PlaceholderRenderer<>(context, "ladybug"));
-		EntityRendererRegistry.register(WildlifeEntities.DRAGONFLY, context -> new PlaceholderRenderer<>(context, "dragonfly"));
-		EntityRendererRegistry.register(WildlifeEntities.FIREFLY, context -> new PlaceholderRenderer<>(context, "firefly"));
-		EntityRendererRegistry.register(WildlifeEntities.SPARROW, context -> new PlaceholderRenderer<>(context, "sparrow"));
-		EntityRendererRegistry.register(WildlifeEntities.ROBIN, context -> new PlaceholderRenderer<>(context, "robin"));
-		EntityRendererRegistry.register(WildlifeEntities.CROW, context -> new PlaceholderRenderer<>(context, "crow"));
-		EntityRendererRegistry.register(WildlifeEntities.CARDINAL, context -> new PlaceholderRenderer<>(context, "cardinal"));
-		EntityRendererRegistry.register(WildlifeEntities.BLUEJAY, context -> new PlaceholderRenderer<>(context, "bluejay"));
+        WildlifeMod.LOGGER.info("Wildlife Mod client initialized!");
+    }
 
-		WildlifeMod.LOGGER.info("Wildlife Mod client initialized!");
-	}
+    /**
+     * Minimal placeholder renderer for MC 26.1.1's new render state pipeline.
+     * Entities will be invisible until proper models/renderers are implemented.
+     */
+    public static class PlaceholderRenderer extends EntityRenderer<Entity, EntityRenderState> {
+        public PlaceholderRenderer(EntityRendererProvider.Context context) {
+            super(context);
+        }
 
-	/**
-	 * Placeholder renderer until proper models are implemented
-	 */
-	private static class PlaceholderRenderer<T extends net.minecraft.world.entity.Entity> extends MobRenderer<T, EntityModel<T>> {
-		private static final Identifier PLACEHOLDER_TEXTURE = WildlifeMod.id("textures/entity/placeholder.png");
+        @Override
+        public EntityRenderState createRenderState() {
+            return new EntityRenderState();
+        }
 
-		public PlaceholderRenderer(EntityRendererProvider.Context context, String entityName) {
-			super(context, new PlaceholderModel<>(), 0.5F);
-		}
+        @Override
+        public void extractRenderState(Entity entity, EntityRenderState state, float partialTick) {
+            super.extractRenderState(entity, state, partialTick);
+        }
 
-		@Override
-		public Identifier getTextureLocation(T entity) {
-			return PLACEHOLDER_TEXTURE;
-		}
-	}
-
-	/**
-	 * Placeholder model - uses a simple cube
-	 */
-	private static class PlaceholderModel<T extends net.minecraft.world.entity.Entity> extends EntityModel<T> {
-		public PlaceholderModel() {
-			// Empty model for now
-		}
-
-		@Override
-		public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		}
-
-		@Override
-		public void renderToBuffer(com.mojang.blaze3d.vertex.PoseStack poseStack, com.mojang.blaze3d.vertex.VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
-			// Render nothing for now - will be replaced with proper models
-		}
-	}
+        @Override
+        public Identifier getTextureLocation(EntityRenderState state) {
+            return WildlifeMod.id("textures/entity/placeholder.png");
+        }
+    }
 }
