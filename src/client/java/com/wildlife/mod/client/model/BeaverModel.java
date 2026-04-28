@@ -3,11 +3,11 @@ package com.wildlife.mod.client.model;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.CubeDeformation;
-import net.minecraft.client.model.geom.CubeListBuilder;
-import net.minecraft.client.model.geom.MeshDefinition;
-import net.minecraft.client.model.geom.PartDefinition;
-import net.minecraft.client.model.geom.LayerDefinition;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import com.wildlife.mod.client.renderstate.WildlifeRenderState;
 
 /**
