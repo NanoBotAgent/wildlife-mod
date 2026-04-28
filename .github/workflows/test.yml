@@ -3,7 +3,7 @@ name: Run Wildlife Mod GameTest
 on:
   workflow_dispatch:
   push:
-    branches: [ fabric ]
+    branches: [fabric]
     paths:
       - 'src/**'
       - 'build.gradle'
@@ -41,10 +41,6 @@ jobs:
           cp build/libs/wildlife-*.jar run/mods/
           ls -la run/mods/
 
-      # mc-runtime-test launches a headless Minecraft client, joins a single-player world,
-      # and runs /test runall which discovers and executes all registered GameTests.
-      # McTester is not used — it doesn't support MC 26.1.1. The built-in GameTest
-      # framework is sufficient for entity spawn/behavior validation.
       - name: Run MC test client with GameTest
         uses: headlesshq/mc-runtime-test@4.4.0
         with:
@@ -53,10 +49,9 @@ jobs:
           regex: .*fabric.*
           mc-runtime-test: fabric
           java: ${{ env.java_version }}
-      fabric-api: '0.145.4'
-      fabric-gametest-api: 'none'
-          headlessmc-command: >-
-            --jvm "-DMcRuntimeGameTestMinExpectedGameTests=1"
+          fabric-api: '0.145.4'
+          fabric-gametest-api: 'none'
+          headlessmc-command: '--jvm "-DMcRuntimeGameTestMinExpectedGameTests=1"'
           cache-mc: 'true'
 
       - name: Upload build artifacts
