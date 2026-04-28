@@ -4,10 +4,14 @@ import com.wildlife.mod.WildlifeMod;
 import com.wildlife.mod.entity.WildlifeEntities;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
+
+import java.util.function.Function;
 
 public class WildlifeItems {
 
@@ -41,13 +45,19 @@ public class WildlifeItems {
     public static final Item CARDINAL_SPAWN_EGG = registerSpawnEgg("cardinal_spawn_egg", WildlifeEntities.CARDINAL);
     public static final Item BLUEJAY_SPAWN_EGG = registerSpawnEgg("bluejay_spawn_egg", WildlifeEntities.BLUEJAY);
 
-    private static Item registerSpawnEgg(String name, EntityType<?> type) {
-        Item item = new SpawnEggItem(new Item.Properties().spawnEgg(type));
-        return registerItem(name, item);
+    /**
+     * Register an item using the MC 26.1.1+ pattern:
+     * Create a ResourceKey, set it on Item.Properties via setId(), then register.
+     */
+    private static <T extends Item> T register(String name, Function<Item.Properties, T> itemFactory, Item.Properties settings) {
+        ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(WildlifeMod.MOD_ID, name));
+        T item = itemFactory.apply(settings.setId(itemKey));
+        Registry.register(BuiltInRegistries.ITEM, itemKey, item);
+        return item;
     }
 
-    private static Item registerItem(String name, Item item) {
-        return Registry.register(BuiltInRegistries.ITEM, WildlifeMod.id(name), item);
+    private static Item registerSpawnEgg(String name, EntityType<?> type) {
+        return register(name, props -> new SpawnEggItem(props.spawnEgg(type)), new Item.Properties());
     }
 
     public static void register() {
