@@ -27,7 +27,7 @@ public class ButterflyModel extends EntityModel<WildlifeRenderState> {
         this.antennae = body.getChild("antennae");
     }
 
-    public static LayerDefinition getTexturedModelData() {
+    public static LayerDefinition createLayerDefinition() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
 

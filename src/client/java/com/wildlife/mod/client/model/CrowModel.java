@@ -33,7 +33,7 @@ public class CrowModel extends EntityModel<WildlifeRenderState> {
         this.leftLeg = body.getChild("left_leg");
     }
 
-    public static LayerDefinition getTexturedModelData() {
+    public static LayerDefinition createLayerDefinition() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
 
@@ -87,8 +87,8 @@ public class CrowModel extends EntityModel<WildlifeRenderState> {
     @Override
     public void setupAnim(WildlifeRenderState state) {
         super.setupAnim(state);
-        float walkAnim = state.walkAnimation.positiveScale(1.0F);
-        float limbSwing = state.walkAnimation.speed();
+        float walkAnim = state.walkAnimationPos;
+        float limbSwing = state.walkAnimationSpeed;
 
         this.rightWing.zRot = (float)(Math.sin(state.ageInTicks * 2.5F) * 0.25F) + 0.05F;
         this.leftWing.zRot = (float)(Math.sin(state.ageInTicks * 2.5F + Math.PI) * 0.25F) - 0.05F;

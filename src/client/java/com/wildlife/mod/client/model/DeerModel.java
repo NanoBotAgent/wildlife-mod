@@ -35,7 +35,7 @@ public class DeerModel extends EntityModel<WildlifeRenderState> {
         this.tail = body.getChild("tail");
     }
 
-    public static LayerDefinition getTexturedModelData() {
+    public static LayerDefinition createLayerDefinition() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
 
@@ -94,8 +94,8 @@ public class DeerModel extends EntityModel<WildlifeRenderState> {
     public void setupAnim(WildlifeRenderState state) {
         super.setupAnim(state);
 
-        float walkAnim = state.walkAnimation.positiveScale(1.0F);
-        float limbSwing = state.walkAnimation.speed();
+        float walkAnim = state.walkAnimationPos;
+        float limbSwing = state.walkAnimationSpeed;
 
         // Leg animation - alternating front/hind
         this.rightFrontLeg.xRot = (float)(Math.sin(walkAnim * 0.6F) * 0.5F * limbSwing);

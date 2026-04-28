@@ -33,7 +33,7 @@ public class SparrowModel extends EntityModel<WildlifeRenderState> {
         this.leftLeg = body.getChild("left_leg");
     }
 
-    public static LayerDefinition getTexturedModelData() {
+    public static LayerDefinition createLayerDefinition() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
 
@@ -87,8 +87,8 @@ public class SparrowModel extends EntityModel<WildlifeRenderState> {
     @Override
     public void setupAnim(WildlifeRenderState state) {
         super.setupAnim(state);
-        float walkAnim = state.walkAnimation.positiveScale(1.0F);
-        float limbSwing = state.walkAnimation.speed();
+        float walkAnim = state.walkAnimationPos;
+        float limbSwing = state.walkAnimationSpeed;
 
         // Wing flap
         this.rightWing.zRot = (float)(Math.sin(state.ageInTicks * 3.0F) * 0.3F) + 0.1F;

@@ -33,7 +33,7 @@ public class MeerkatModel extends EntityModel<WildlifeRenderState> {
         this.tail = body.getChild("tail");
     }
 
-    public static LayerDefinition getTexturedModelData() {
+    public static LayerDefinition createLayerDefinition() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
 
@@ -91,8 +91,8 @@ public class MeerkatModel extends EntityModel<WildlifeRenderState> {
     @Override
     public void setupAnim(WildlifeRenderState state) {
         super.setupAnim(state);
-        float walkAnim = state.walkAnimation.positiveScale(1.0F);
-        float limbSwing = state.walkAnimation.speed();
+        float walkAnim = state.walkAnimationPos;
+        float limbSwing = state.walkAnimationSpeed;
 
         this.rightArm.xRot = (float)(Math.sin(walkAnim * 0.6F) * 0.4F * limbSwing) - 0.2F;
         this.leftArm.xRot = (float)(Math.sin(walkAnim * 0.6F + Math.PI) * 0.4F * limbSwing) - 0.2F;

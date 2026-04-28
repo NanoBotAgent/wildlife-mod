@@ -35,7 +35,7 @@ public class OstrichModel extends EntityModel<WildlifeRenderState> {
         this.tail = body.getChild("tail");
     }
 
-    public static LayerDefinition getTexturedModelData() {
+    public static LayerDefinition createLayerDefinition() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
 
@@ -95,8 +95,8 @@ public class OstrichModel extends EntityModel<WildlifeRenderState> {
     @Override
     public void setupAnim(WildlifeRenderState state) {
         super.setupAnim(state);
-        float walkAnim = state.walkAnimation.positiveScale(1.0F);
-        float limbSwing = state.walkAnimation.speed();
+        float walkAnim = state.walkAnimationPos;
+        float limbSwing = state.walkAnimationSpeed;
 
         this.rightLeg.xRot = (float)(Math.sin(walkAnim * 0.6F) * 0.6F * limbSwing);
         this.leftLeg.xRot = (float)(Math.sin(walkAnim * 0.6F + Math.PI) * 0.6F * limbSwing);

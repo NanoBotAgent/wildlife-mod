@@ -27,7 +27,7 @@ public class LadybugModel extends EntityModel<WildlifeRenderState> {
         this.leftWingCover = body.getChild("left_wing_cover");
     }
 
-    public static LayerDefinition getTexturedModelData() {
+    public static LayerDefinition createLayerDefinition() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
 

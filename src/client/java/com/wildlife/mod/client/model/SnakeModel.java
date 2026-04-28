@@ -25,7 +25,7 @@ public class SnakeModel extends EntityModel<WildlifeRenderState> {
         this.tail = body.getChild("tail");
     }
 
-    public static LayerDefinition getTexturedModelData() {
+    public static LayerDefinition createLayerDefinition() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
 
@@ -55,8 +55,8 @@ public class SnakeModel extends EntityModel<WildlifeRenderState> {
     @Override
     public void setupAnim(WildlifeRenderState state) {
         super.setupAnim(state);
-        float walkAnim = state.walkAnimation.positiveScale(1.0F);
-        float limbSwing = state.walkAnimation.speed();
+        float walkAnim = state.walkAnimationPos;
+        float limbSwing = state.walkAnimationSpeed;
 
         // Snake slither - sinusoidal body wave
         this.body.yRot = (float)(Math.sin(walkAnim * 0.8F) * 0.3F * limbSwing);

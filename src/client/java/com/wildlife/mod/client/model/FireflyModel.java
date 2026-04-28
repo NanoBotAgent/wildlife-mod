@@ -29,7 +29,7 @@ public class FireflyModel extends EntityModel<WildlifeRenderState> {
         this.abdomen = body.getChild("abdomen");
     }
 
-    public static LayerDefinition getTexturedModelData() {
+    public static LayerDefinition createLayerDefinition() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
 

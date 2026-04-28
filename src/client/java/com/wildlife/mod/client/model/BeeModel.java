@@ -29,7 +29,7 @@ public class BeeModel extends EntityModel<WildlifeRenderState> {
         this.stinger = body.getChild("stinger");
     }
 
-    public static LayerDefinition getTexturedModelData() {
+    public static LayerDefinition createLayerDefinition() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
 

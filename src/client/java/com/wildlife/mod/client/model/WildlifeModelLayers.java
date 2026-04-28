@@ -1,7 +1,7 @@
 package com.wildlife.mod.client.model;
 
 import com.wildlife.mod.WildlifeMod;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.Identifier;
 
@@ -61,51 +61,51 @@ public class WildlifeModelLayers {
 
     public static void registerModelLayers() {
         // Forest & Plains
-        EntityModelLayerRegistry.registerModelLayer(DEER, DeerModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(BOAR, BoarModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(FOX, FoxModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(RACCOON, RaccoonModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(BADGER, BadgerModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(DEER, DeerModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(BOAR, BoarModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(FOX, FoxModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(RACCOON, RaccoonModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(BADGER, BadgerModel::createLayerDefinition);
 
         // Jungle
-        EntityModelLayerRegistry.registerModelLayer(MONKEY, MonkeyModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(TAPIR, TapirModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(TOUCAN, ToucanModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(MONKEY, MonkeyModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(TAPIR, TapirModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(TOUCAN, ToucanModel::createLayerDefinition);
 
         // Desert & Savanna
-        EntityModelLayerRegistry.registerModelLayer(MEERKAT, MeerkatModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(OSTRICH, OstrichModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(MEERKAT, MeerkatModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(OSTRICH, OstrichModel::createLayerDefinition);
 
         // Water & Wetlands
-        EntityModelLayerRegistry.registerModelLayer(OTTER, OtterModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(BEAVER, BeaverModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(DUCK, DuckModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(OTTER, OtterModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(BEAVER, BeaverModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(DUCK, DuckModel::createLayerDefinition);
 
         // Mountains & Taiga
-        EntityModelLayerRegistry.registerModelLayer(MARMOT, MarmotModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(GOAT, GoatModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(MARMOT, MarmotModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(GOAT, GoatModel::createLayerDefinition);
 
         // Snow & Ice
-        EntityModelLayerRegistry.registerModelLayer(PENGUIN, PenguinModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(PENGUIN, PenguinModel::createLayerDefinition);
 
         // Night
-        EntityModelLayerRegistry.registerModelLayer(OWL, OwlModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(OWL, OwlModel::createLayerDefinition);
 
         // Reptiles
-        EntityModelLayerRegistry.registerModelLayer(SNAKE, SnakeModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(SNAKE, SnakeModel::createLayerDefinition);
 
         // Insects
-        EntityModelLayerRegistry.registerModelLayer(BUTTERFLY, ButterflyModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(BEE, BeeModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(LADYBUG, LadybugModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(DRAGONFLY, DragonflyModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(FIREFLY, FireflyModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(BUTTERFLY, ButterflyModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(BEE, BeeModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(LADYBUG, LadybugModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(DRAGONFLY, DragonflyModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(FIREFLY, FireflyModel::createLayerDefinition);
 
         // Birds
-        EntityModelLayerRegistry.registerModelLayer(SPARROW, SparrowModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(ROBIN, RobinModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(CROW, CrowModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(CARDINAL, CardinalModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(BLUEJAY, BluejayModel::getTexturedModelData);
+        ModelLayerRegistry.registerModelLayer(SPARROW, SparrowModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(ROBIN, RobinModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(CROW, CrowModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(CARDINAL, CardinalModel::createLayerDefinition);
+        ModelLayerRegistry.registerModelLayer(BLUEJAY, BluejayModel::createLayerDefinition);
     }
 }

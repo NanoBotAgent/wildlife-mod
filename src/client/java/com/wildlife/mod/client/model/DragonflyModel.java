@@ -29,7 +29,7 @@ public class DragonflyModel extends EntityModel<WildlifeRenderState> {
         this.tail = body.getChild("tail");
     }
 
-    public static LayerDefinition getTexturedModelData() {
+    public static LayerDefinition createLayerDefinition() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
 
