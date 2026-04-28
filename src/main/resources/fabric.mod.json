@@ -17,6 +17,9 @@
   "entrypoints": {
     "main": [
       "com.wildlife.mod.WildlifeMod"
+    ],
+    "client": [
+      "com.wildlife.mod.client.WildlifeModClient"
     ]
   },
   "mixins": [
