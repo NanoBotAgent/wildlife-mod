@@ -20,6 +20,9 @@
     ],
     "client": [
       "com.wildlife.mod.client.WildlifeModClient"
+    ],
+    "fabric-gametest": [
+      "com.wildlife.mod.gametest.WildlifeGameTest"
     ]
   },
   "mixins": [
