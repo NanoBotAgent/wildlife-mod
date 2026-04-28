@@ -2,7 +2,9 @@ package com.wildlife.mod.gametest;
 
 import com.wildlife.mod.entity.WildlifeEntities;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
+import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.entity.EntitySpawnReason;
 
 /**
  * GameTest class for Wildlife Mod.
@@ -13,28 +15,31 @@ public class WildlifeGameTest {
 
     @GameTest(maxTicks = 100, setupTicks = 20)
     public void deerSpawnsAndExists(GameTestHelper helper) {
-        var deer = WildlifeEntities.DEER.create(helper.getLevel());
+        var level = helper.getLevel();
+        var deer = WildlifeEntities.DEER.create(level, EntitySpawnReason.COMMAND);
         if (deer == null) {
             helper.fail("Failed to create deer entity — WildlifeEntities.DEER returned null");
             return;
         }
-        var pos = helper.getAbsolutePos(1, 2, 1);
-        deer.moveTo(pos.getX(), pos.getY(), pos.getZ());
-        helper.getLevel().addFreshEntity(deer);
+        // Place the deer at the test structure's origin
+        var origin = helper.getAbsolutePos(BlockPos.ZERO);
+        deer.setPos(origin.getX() + 0.5, origin.getY() + 1.0, origin.getZ() + 0.5);
+        level.addFreshEntity(deer);
         helper.assertTrue(deer.isAlive(), "Deer should be alive after spawning");
         helper.succeed();
     }
 
     @GameTest(maxTicks = 100, setupTicks = 20)
     public void snakeSpawnsAndExists(GameTestHelper helper) {
-        var snake = WildlifeEntities.SNAKE.create(helper.getLevel());
+        var level = helper.getLevel();
+        var snake = WildlifeEntities.SNAKE.create(level, EntitySpawnReason.COMMAND);
         if (snake == null) {
             helper.fail("Failed to create snake entity — WildlifeEntities.SNAKE returned null");
             return;
         }
-        var pos = helper.getAbsolutePos(1, 2, 1);
-        snake.moveTo(pos.getX(), pos.getY(), pos.getZ());
-        helper.getLevel().addFreshEntity(snake);
+        var origin = helper.getAbsolutePos(BlockPos.ZERO);
+        snake.setPos(origin.getX() + 0.5, origin.getY() + 1.0, origin.getZ() + 0.5);
+        level.addFreshEntity(snake);
         helper.assertTrue(snake.isAlive(), "Snake should be alive after spawning");
         helper.succeed();
     }
