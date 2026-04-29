@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "wildlife:item/penguin_spawn_egg"
+  }
+}

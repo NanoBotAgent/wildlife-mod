@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "wildlife:item/bluejay_spawn_egg"
+  }
+}

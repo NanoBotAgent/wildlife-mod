@@ -11,8 +11,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 
-import java.util.function.Function;
-
 public class WildlifeItems {
 
     // Spawn Eggs
@@ -23,7 +21,7 @@ public class WildlifeItems {
     public static final Item BADGER_SPAWN_EGG = registerSpawnEgg("badger_spawn_egg", WildlifeEntities.BADGER);
     public static final Item MONKEY_SPAWN_EGG = registerSpawnEgg("monkey_spawn_egg", WildlifeEntities.MONKEY);
     public static final Item TAPIR_SPAWN_EGG = registerSpawnEgg("tapir_spawn_egg", WildlifeEntities.TAPIR);
-    public static final Item TOUCCAN_SPAWN_EGG = registerSpawnEgg("toucan_spawn_egg", WildlifeEntities.TOUCAN);
+    public static final Item TOUCAN_SPAWN_EGG = registerSpawnEgg("toucan_spawn_egg", WildlifeEntities.TOUCAN);
     public static final Item MEERKAT_SPAWN_EGG = registerSpawnEgg("meerkat_spawn_egg", WildlifeEntities.MEERKAT);
     public static final Item OSTRICH_SPAWN_EGG = registerSpawnEgg("ostrich_spawn_egg", WildlifeEntities.OSTRICH);
     public static final Item OTTER_SPAWN_EGG = registerSpawnEgg("otter_spawn_egg", WildlifeEntities.OTTER);
@@ -49,15 +47,19 @@ public class WildlifeItems {
      * Register an item using the MC 26.1.1+ pattern:
      * Create a ResourceKey, set it on Item.Properties via setId(), then register.
      */
-    private static <T extends Item> T register(String name, Function<Item.Properties, T> itemFactory, Item.Properties settings) {
+    private static <T extends Item> T register(String name, Item.Factory itemFactory, Item.Properties settings) {
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(WildlifeMod.MOD_ID, name));
-        T item = itemFactory.apply(settings.setId(itemKey));
+        T item = itemFactory.create(settings.setId(itemKey));
         Registry.register(BuiltInRegistries.ITEM, itemKey, item);
         return item;
     }
 
+    /**
+     * Register a spawn egg using the official MC 26.1.1+ pattern.
+     * Uses SpawnEggItem::new with Item.Properties().spawnEgg(entityType).
+     */
     private static Item registerSpawnEgg(String name, EntityType<?> type) {
-        return register(name, props -> new SpawnEggItem(props.spawnEgg(type)), new Item.Properties());
+        return register(name, SpawnEggItem::new, new Item.Properties().spawnEgg(type));
     }
 
     public static void register() {

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "wildlife:item/crow_spawn_egg"
+  }
+}
