@@ -1,17 +1,15 @@
 # Wildlife Mod 🦌🐒🦉🦋🐦
 
-A vanilla-friendly Minecraft mod for **Java Edition 26.1.1** that adds realistic wildlife mobs across all biomes.
-
-**Now available for Fabric!**
+A vanilla-friendly Minecraft mod for **Java Edition 26.1.1** that adds realistic wildlife mobs across all biomes. Built with **Fabric**.
 
 ## Requirements
 
 - **Minecraft**: Java Edition 26.1.1
-- **Fabric Loader**: 0.18.6 or higher
+- **Fabric Loader**: 0.18.6+
 - **Fabric API**: 0.145.4+26.1.1
 - **Java**: 25 or higher
 
-## Animals (27 Species!)
+## Animals (28 Species!)
 
 ### 🌲 Forest & Plains
 | Animal | Behavior | Drops |
@@ -83,11 +81,13 @@ A vanilla-friendly Minecraft mod for **Java Edition 26.1.1** that adds realistic
 
 ## Features
 
+- **28 unique animals** across 8 categories
 - **Realistic AI**: Each animal has unique behaviors
 - **Biome-specific spawning**: Animals spawn in appropriate biomes
 - **Breeding**: All animals can be bred with appropriate foods
-- **Custom models & animations**: Smooth, vanilla-style animations
-- **Items**: Meat, furs, feathers, and spawn eggs
+- **Custom models & animations**: Smooth, vanilla-style animations for every entity
+- **Custom renderers**: Full MC 26.1.1 render pipeline (extractRenderState/submit pattern)
+- **Spawn eggs**: All 28 entities have spawn eggs in the creative inventory
 - **Small mobs**: Insects and birds add ambient life without cluttering the world
 
 ## Breeding Guide
@@ -115,16 +115,28 @@ A vanilla-friendly Minecraft mod for **Java Edition 26.1.1** that adds realistic
 
 ## Building
 
+Requires Java 25+ and Gradle 9.3+.
+
 ```bash
 ./gradlew build
 ```
 
+The built JAR will be in `build/libs/`.
+
 ## Installation
 
-1. Install Fabric Loader 0.18.6+ for Minecraft 26.1.1
-2. Install Fabric API
-3. Place the mod JAR in your `mods` folder
+1. Install [Fabric Loader](https://fabricmc.net/use/) 0.18.6+ for Minecraft 26.1.1
+2. Download [Fabric API](https://modrinth.com/mod/fabric-api) 0.145.4+26.1.1 and place it in your `mods/` folder
+3. Place the Wildlife Mod JAR in your `mods/` folder
 4. Launch the game!
+
+## Tech Stack
+
+- **Fabric Loader** 0.18.6
+- **Fabric Loom** 1.15-SNAPSHOT
+- **Fabric API** 0.145.4+26.1.1
+- **Gradle** 9.3.0
+- **Java** 25
 
 ## License
 
