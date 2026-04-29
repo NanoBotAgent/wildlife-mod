@@ -50,7 +50,7 @@ jobs:
           mc-runtime-test: fabric
           java: ${{ env.java_version }}
           fabric-api: '0.145.4'
-          fabric-gametest-api: 'none'
+          fabric-gametest-api: '4.0.13+00a1fba6b3'
           headlessmc-command: '--jvm "-DMcRuntimeGameTestMinExpectedGameTests=1"'
           cache-mc: 'true'
 
