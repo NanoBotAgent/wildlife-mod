@@ -51,7 +51,7 @@ public class WildlifeItems {
      */
     private static <T extends Item> T register(String name, Function<Item.Properties, T> itemFactory, Item.Properties settings) {
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(WildlifeMod.MOD_ID, name));
-        T item = itemFactory.create(settings.setId(itemKey));
+        T item = itemFactory.apply(settings.setId(itemKey));
         Registry.register(BuiltInRegistries.ITEM, itemKey, item);
         return item;
     }
