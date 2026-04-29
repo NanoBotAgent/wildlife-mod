@@ -11,6 +11,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 
+import java.util.function.Function;
+
 public class WildlifeItems {
 
     // Spawn Eggs
@@ -47,7 +49,7 @@ public class WildlifeItems {
      * Register an item using the MC 26.1.1+ pattern:
      * Create a ResourceKey, set it on Item.Properties via setId(), then register.
      */
-    private static <T extends Item> T register(String name, Item.Factory itemFactory, Item.Properties settings) {
+    private static <T extends Item> T register(String name, Function<Item.Properties, T> itemFactory, Item.Properties settings) {
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(WildlifeMod.MOD_ID, name));
         T item = itemFactory.create(settings.setId(itemKey));
         Registry.register(BuiltInRegistries.ITEM, itemKey, item);
