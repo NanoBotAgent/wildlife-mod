@@ -3,24 +3,15 @@ package com.wildlife.mod.client.model;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
-import net.minecraft.client.model.geom.builders.CubeListBuilder;
-import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.*;
 import com.wildlife.mod.client.renderstate.WildlifeRenderState;
 
 /**
- * Crow model - larger black bird with sturdy build and thick beak.
+ * Crow model.
  */
 public class CrowModel extends EntityModel<WildlifeRenderState> {
-    private final ModelPart body;
-    private final ModelPart head;
-    private final ModelPart rightWing;
-    private final ModelPart leftWing;
-    private final ModelPart tail;
-    private final ModelPart rightLeg;
-    private final ModelPart leftLeg;
+    private final ModelPart body, head, rightWing, leftWing, tail;
+    private final ModelPart rightLeg, leftLeg;
 
     public CrowModel(ModelPart root) {
         super(root);
@@ -38,65 +29,66 @@ public class CrowModel extends EntityModel<WildlifeRenderState> {
         PartDefinition root = mesh.getRoot();
 
         PartDefinition body = root.addOrReplaceChild("body",
-            CubeListBuilder.create()
-                .texOffs(0, 0)
-                .addBox(-4.0F, -4.0F, -5.0F, 8.0F, 6.0F, 10.0F, CubeDeformation.NONE),
-            PartPose.offset(0.0F, 16.0F, 0.0F));
+            CubeListBuilder.create().texOffs(0, 0).addBox(-2.5f, -4f, -4f, 5f, 4f, 7f),
+            PartPose.offset(0, 18f, 0));
 
         body.addOrReplaceChild("head",
             CubeListBuilder.create()
-                .texOffs(0, 16)
-                .addBox(-3.0F, -3.0F, -4.0F, 6.0F, 4.0F, 4.0F)
-                .texOffs(24, 16)
-                .addBox(-1.5F, -0.5F, -6.0F, 3.0F, 1.5F, 2.0F), // thick beak
-            PartPose.offset(0.0F, -4.0F, -5.0F));
+                .texOffs(0, 6).addBox(-2.0f, -3f, -4f, 4f, 3f, 4f)
+                .texOffs(6, 6).addBox(-1.0f, -1f, -6f, 2f, 1f, 2f),
+            PartPose.offset(0, -3f, -3f));
 
         body.addOrReplaceChild("right_wing",
-            CubeListBuilder.create()
-                .texOffs(36, 0)
-                .addBox(-1.0F, -1.0F, 0.0F, 1.0F, 5.0F, 8.0F),
-            PartPose.offset(-4.0F, -3.0F, 0.0F));
-
+            CubeListBuilder.create().texOffs(14, 0).addBox(-1f, 0, -1f, 1f, 5f, 6f),
+            PartPose.offset(-3f, -3f, -1f));
         body.addOrReplaceChild("left_wing",
-            CubeListBuilder.create()
-                .texOffs(36, 0)
-                .addBox(0.0F, -1.0F, 0.0F, 1.0F, 5.0F, 8.0F),
-            PartPose.offset(4.0F, -3.0F, 0.0F));
+            CubeListBuilder.create().texOffs(14, 0).addBox(0, 0, -1f, 1f, 5f, 6f),
+            PartPose.offset(3f, -3f, -1f));
 
         body.addOrReplaceChild("tail",
-            CubeListBuilder.create()
-                .texOffs(0, 24)
-                .addBox(-2.5F, -1.0F, 0.0F, 5.0F, 2.0F, 5.0F),
-            PartPose.offset(0.0F, -1.0F, 5.0F));
+            CubeListBuilder.create().texOffs(0, 11).addBox(-1.5f, -1.0f, 0, 3f, 2f, 4f),
+            PartPose.offset(0, -2f, 2f));
 
         body.addOrReplaceChild("right_leg",
-            CubeListBuilder.create()
-                .texOffs(20, 24)
-                .addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F),
-            PartPose.offset(-2.0F, 2.0F, 0.0F));
-
+            CubeListBuilder.create().texOffs(19, 0).addBox(-0.5f, 0, -0.5f, 1f, 4f, 1f),
+            PartPose.offset(-2f, 0f, 0f));
         body.addOrReplaceChild("left_leg",
-            CubeListBuilder.create()
-                .texOffs(20, 24)
-                .addBox(-0.5F, 0.0F, -0.5F, 1.0F, 4.0F, 1.0F),
-            PartPose.offset(2.0F, 2.0F, 0.0F));
+            CubeListBuilder.create().texOffs(19, 0).addBox(-0.5f, 0, -0.5f, 1f, 4f, 1f),
+            PartPose.offset(1f, 0f, 0f));
 
-        return LayerDefinition.create(mesh, 64, 32);
+        return LayerDefinition.create(mesh, 64, 64);
     }
 
     @Override
     public void setupAnim(WildlifeRenderState state) {
         super.setupAnim(state);
-        float walkAnim = state.walkAnimationPos;
-        float limbSwing = state.walkAnimationSpeed;
+        float wa = state.walkAnimationPos;
+        float ls = state.walkAnimationSpeed;
+        float age = state.ageInTicks;
 
-        this.rightWing.zRot = (float)(Math.sin(state.ageInTicks * 2.5F) * 0.25F) + 0.05F;
-        this.leftWing.zRot = (float)(Math.sin(state.ageInTicks * 2.5F + Math.PI) * 0.25F) - 0.05F;
+        // Hopping walk — small birds hop rather than walk
+        this.rightLeg.xRot = (float)(Math.sin(wa*0.6f)*0.35f*ls);
+        this.leftLeg.xRot = (float)(Math.sin(wa*0.6f+Math.PI)*0.35f*ls);
+        this.body.y = 18f + (float)(Math.abs(Math.sin(wa*1.2f))*0.4f*ls);
 
-        this.rightLeg.xRot = (float)(Math.sin(walkAnim * 0.6F) * 0.4F * limbSwing);
-        this.leftLeg.xRot = (float)(Math.sin(walkAnim * 0.6F + Math.PI) * 0.4F * limbSwing);
+        // Wing flutter
+        this.rightWing.zRot = (float)(Math.sin(age*3.0f)*0.2f) + 0.1f;
+        this.leftWing.zRot = (float)(Math.sin(age*3.0f+Math.PI)*0.2f) - 0.1f;
 
-        this.head.xRot = (float)(Math.sin(walkAnim * 0.6F) * 0.08F * limbSwing);
-        this.tail.xRot = (float)(Math.sin(state.ageInTicks * 0.4F) * 0.05F);
+        // Head bob — birds stabilize head visually while body moves
+        this.head.xRot = (float)(Math.sin(wa*0.6f)*-0.1f*ls);
+        this.tail.xRot = (float)(Math.abs(Math.sin(wa*1.2f))*0.1f*ls);
+
+        if (ls < 0.01f) {
+            // Idle: head tilts, tail flicks, wing adjustments
+            this.head.zRot = (float)(Math.sin(age*0.08f)*0.15f);
+            this.head.yRot = (float)(Math.sin(age*0.06f)*0.2f);
+            this.tail.xRot = (float)(Math.sin(age*0.3f)*0.08f);
+            this.rightWing.zRot = (float)(Math.sin(age*0.5f)*0.05f) + 0.1f;
+            this.leftWing.zRot = (float)(Math.sin(age*0.5f+Math.PI)*0.05f) - 0.1f;
+        } else {
+            this.head.zRot = 0;
+            this.head.yRot = 0;
+        }
     }
 }

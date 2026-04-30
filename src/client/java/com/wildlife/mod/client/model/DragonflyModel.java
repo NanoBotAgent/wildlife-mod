@@ -3,30 +3,32 @@ package com.wildlife.mod.client.model;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
-import net.minecraft.client.model.geom.builders.CubeListBuilder;
-import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.*;
 import com.wildlife.mod.client.renderstate.WildlifeRenderState;
 
 /**
- * Dragonfly model - elongated insect with long body and wide wings.
+ * Dragonfly model — elongated body, two independent wing pairs, compound eyes.
+ * Real dragonfly: hovering, darting flight, perching with wings spread,
+ * obelisk posture (pointing abdomen at sun for cooling).
  */
 public class DragonflyModel extends EntityModel<WildlifeRenderState> {
     private final ModelPart body;
-    private final ModelPart head;
-    private final ModelPart rightWing;
-    private final ModelPart leftWing;
-    private final ModelPart tail;
+    private final ModelPart thorax, abdomen;
+    private final ModelPart rightForeWing, rightHindWing;
+    private final ModelPart leftForeWing, leftHindWing;
+    private final ModelPart eyeRight, eyeLeft;
 
     public DragonflyModel(ModelPart root) {
         super(root);
         this.body = root.getChild("body");
-        this.head = body.getChild("head");
-        this.rightWing = body.getChild("right_wing");
-        this.leftWing = body.getChild("left_wing");
-        this.tail = body.getChild("tail");
+        this.thorax = body.getChild("thorax");
+        this.abdomen = body.getChild("abdomen");
+        this.rightForeWing = thorax.getChild("right_fore_wing");
+        this.rightHindWing = thorax.getChild("right_hind_wing");
+        this.leftForeWing = thorax.getChild("left_fore_wing");
+        this.leftHindWing = thorax.getChild("left_hind_wing");
+        this.eyeRight = body.getChild("eye_right");
+        this.eyeLeft = body.getChild("eye_left");
     }
 
     public static LayerDefinition createLayerDefinition() {
@@ -34,46 +36,68 @@ public class DragonflyModel extends EntityModel<WildlifeRenderState> {
         PartDefinition root = mesh.getRoot();
 
         PartDefinition body = root.addOrReplaceChild("body",
-            CubeListBuilder.create()
-                .texOffs(0, 0)
-                .addBox(-1.0F, -1.0F, -2.0F, 2.0F, 2.0F, 4.0F, CubeDeformation.NONE),
-            PartPose.offset(0.0F, 22.0F, 0.0F));
+            CubeListBuilder.create().texOffs(0, 0).addBox(-1f, -1f, -2f, 2f, 2f, 3f),
+            PartPose.offset(0, 22f, 0));
 
-        body.addOrReplaceChild("head",
-            CubeListBuilder.create()
-                .texOffs(0, 6)
-                .addBox(-1.5F, -1.5F, -2.0F, 3.0F, 2.0F, 2.0F),
-            PartPose.offset(0.0F, 0.0F, -2.0F));
+        body.addOrReplaceChild("eye_right",
+            CubeListBuilder.create().texOffs(0, 5).addBox(-0.5f, -0.5f, 0, 1f, 1f, 1f),
+            PartPose.offset(-1f, -1f, -2f));
+        body.addOrReplaceChild("eye_left",
+            CubeListBuilder.create().texOffs(0, 5).addBox(-0.5f, -0.5f, 0, 1f, 1f, 1f),
+            PartPose.offset(1f, -1f, -2f));
 
-        body.addOrReplaceChild("right_wing",
-            CubeListBuilder.create()
-                .texOffs(16, 0)
-                .addBox(-5.0F, -2.0F, -1.0F, 5.0F, 3.0F, 2.0F),
-            PartPose.offset(-1.0F, -1.0F, 0.0F));
+        PartDefinition thorax = body.addOrReplaceChild("thorax",
+            CubeListBuilder.create().texOffs(10, 0).addBox(-1.5f, -1.5f, 0, 3f, 3f, 3f),
+            PartPose.offset(0, 0, 1f));
 
-        body.addOrReplaceChild("left_wing",
-            CubeListBuilder.create()
-                .texOffs(16, 0)
-                .addBox(0.0F, -2.0F, -1.0F, 5.0F, 3.0F, 2.0F),
-            PartPose.offset(1.0F, -1.0F, 0.0F));
+        thorax.addOrReplaceChild("right_fore_wing",
+            CubeListBuilder.create().texOffs(10, 6).addBox(-5f, 0, -1f, 5f, 2f, 2f),
+            PartPose.offset(-1.5f, -1.5f, 1f));
+        thorax.addOrReplaceChild("right_hind_wing",
+            CubeListBuilder.create().texOffs(10, 6).addBox(-4f, 0, -1f, 4f, 2f, 2f),
+            PartPose.offset(-1.5f, -1f, 2.5f));
+        thorax.addOrReplaceChild("left_fore_wing",
+            CubeListBuilder.create().texOffs(10, 6).addBox(0, 0, -1f, 5f, 2f, 2f),
+            PartPose.offset(1.5f, -1.5f, 1f));
+        thorax.addOrReplaceChild("left_hind_wing",
+            CubeListBuilder.create().texOffs(10, 6).addBox(0, 0, -1f, 4f, 2f, 2f),
+            PartPose.offset(1.5f, -1f, 2.5f));
 
-        body.addOrReplaceChild("tail",
-            CubeListBuilder.create()
-                .texOffs(0, 10)
-                .addBox(-0.5F, -0.5F, 0.0F, 1.0F, 1.0F, 8.0F),
-            PartPose.offset(0.0F, 0.0F, 2.0F));
+        body.addOrReplaceChild("abdomen",
+            CubeListBuilder.create().texOffs(0, 10).addBox(-1f, -1f, 0, 2f, 2f, 7f),
+            PartPose.offset(0, -0.5f, 3f));
 
-        return LayerDefinition.create(mesh, 32, 16);
+        return LayerDefinition.create(mesh, 32, 32);
     }
 
     @Override
     public void setupAnim(WildlifeRenderState state) {
         super.setupAnim(state);
-        // Fast wing buzz
-        this.rightWing.zRot = (float)(Math.sin(state.ageInTicks * 7.0F) * 0.5F) + 0.2F;
-        this.leftWing.zRot = (float)(Math.sin(state.ageInTicks * 7.0F + Math.PI) * 0.5F) - 0.2F;
+        float age = state.ageInTicks;
+        float ls = state.walkAnimationSpeed;
 
-        this.body.yRot = (float)(Math.sin(state.ageInTicks * 0.4F) * 0.08F);
-        this.tail.yRot = (float)(Math.sin(state.ageInTicks * 0.6F) * 0.15F);
+        // Dragonflies beat each wing pair independently
+        float speed = ls > 0.01f ? 4f : 2f;
+        this.rightForeWing.zRot = (float)(Math.sin(age*speed)*0.5f);
+        this.leftForeWing.zRot = (float)(Math.sin(age*speed+Math.PI)*0.5f);
+        this.rightHindWing.zRot = (float)(Math.sin(age*speed+0.3f)*0.45f);
+        this.leftHindWing.zRot = (float)(Math.sin(age*speed+Math.PI+0.3f)*0.45f);
+
+        // Abdomen undulates in flight
+        this.abdomen.yRot = (float)(Math.sin(age*2f)*0.1f*ls);
+
+        if (ls < 0.01f) {
+            // Perching: wings held spread, occasional adjustment
+            this.rightForeWing.zRot = 0.3f + (float)(Math.sin(age*0.4f)*0.05f);
+            this.leftForeWing.zRot = -0.3f + (float)(Math.sin(age*0.4f+Math.PI)*0.05f);
+            this.rightHindWing.zRot = 0.25f + (float)(Math.sin(age*0.4f)*0.05f);
+            this.leftHindWing.zRot = -0.25f + (float)(Math.sin(age*0.4f+Math.PI)*0.05f);
+            this.abdomen.yRot = (float)(Math.sin(age*0.15f)*0.03f);
+            // Obelisk posture — abdomen points upward for cooling
+            float obelisk = (float)(Math.max(0, Math.sin(age*0.03f)-0.6f)*2.5f);
+            this.abdomen.xRot = obelisk*0.3f;
+        } else {
+            this.abdomen.xRot = 0;
+        }
     }
 }

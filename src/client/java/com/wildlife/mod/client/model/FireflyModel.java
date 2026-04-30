@@ -3,30 +3,28 @@ package com.wildlife.mod.client.model;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
-import net.minecraft.client.model.geom.builders.CubeListBuilder;
-import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.*;
 import com.wildlife.mod.client.renderstate.WildlifeRenderState;
 
 /**
- * Firefly model - tiny beetle with glowing abdomen.
+ * Firefly model — tiny beetle with bioluminescent abdomen.
+ * Real firefly: slow flight with abdomen glowing, perching on vegetation,
+ * flashing patterns for mating signals.
  */
 public class FireflyModel extends EntityModel<WildlifeRenderState> {
     private final ModelPart body;
-    private final ModelPart head;
-    private final ModelPart rightWing;
-    private final ModelPart leftWing;
+    private final ModelPart rightWing, leftWing;
     private final ModelPart abdomen;
+    private final ModelPart rightAntenna, leftAntenna;
 
     public FireflyModel(ModelPart root) {
         super(root);
         this.body = root.getChild("body");
-        this.head = body.getChild("head");
         this.rightWing = body.getChild("right_wing");
         this.leftWing = body.getChild("left_wing");
         this.abdomen = body.getChild("abdomen");
+        this.rightAntenna = body.getChild("right_antenna");
+        this.leftAntenna = body.getChild("left_antenna");
     }
 
     public static LayerDefinition createLayerDefinition() {
@@ -34,44 +32,57 @@ public class FireflyModel extends EntityModel<WildlifeRenderState> {
         PartDefinition root = mesh.getRoot();
 
         PartDefinition body = root.addOrReplaceChild("body",
-            CubeListBuilder.create()
-                .texOffs(0, 0)
-                .addBox(-1.0F, -1.0F, -1.5F, 2.0F, 2.0F, 3.0F, CubeDeformation.NONE),
-            PartPose.offset(0.0F, 23.0F, 0.0F));
-
-        body.addOrReplaceChild("head",
-            CubeListBuilder.create()
-                .texOffs(0, 5)
-                .addBox(-0.5F, -1.0F, -1.5F, 1.0F, 1.0F, 1.0F),
-            PartPose.offset(0.0F, 0.0F, -1.5F));
+            CubeListBuilder.create().texOffs(0, 0).addBox(-1f, -1f, -2f, 2f, 2f, 4f),
+            PartPose.offset(0, 23f, 0));
 
         body.addOrReplaceChild("right_wing",
-            CubeListBuilder.create()
-                .texOffs(12, 0)
-                .addBox(-2.0F, -1.5F, -0.5F, 2.0F, 2.0F, 1.5F),
-            PartPose.offset(-1.0F, -1.0F, 0.0F));
-
+            CubeListBuilder.create().texOffs(8, 0).addBox(-3f, 0, -1f, 3f, 2f, 1.5f),
+            PartPose.offset(-1f, -1f, 1f));
         body.addOrReplaceChild("left_wing",
-            CubeListBuilder.create()
-                .texOffs(12, 0)
-                .addBox(0.0F, -1.5F, -0.5F, 2.0F, 2.0F, 1.5F),
-            PartPose.offset(1.0F, -1.0F, 0.0F));
+            CubeListBuilder.create().texOffs(8, 0).addBox(0, 0, -1f, 3f, 2f, 1.5f),
+            PartPose.offset(1f, -1f, 1f));
 
         body.addOrReplaceChild("abdomen",
-            CubeListBuilder.create()
-                .texOffs(0, 7)
-                .addBox(-1.0F, -1.0F, 0.0F, 2.0F, 2.0F, 2.0F), // glowing part
-            PartPose.offset(0.0F, 0.0F, 1.5F));
+            CubeListBuilder.create().texOffs(0, 6).addBox(-1.5f, -1.5f, 0, 3f, 3f, 3f),
+            PartPose.offset(0, 0, 1f));
 
-        return LayerDefinition.create(mesh, 16, 16);
+        body.addOrReplaceChild("right_antenna",
+            CubeListBuilder.create().texOffs(0, 0).addBox(0, -1.5f, 0, 1f, 1.5f, 0),
+            PartPose.offsetAndRotation(0.5f, -1f, -2f, 0.2f, 0, -0.2f));
+        body.addOrReplaceChild("left_antenna",
+            CubeListBuilder.create().texOffs(0, 0).addBox(-1f, -1.5f, 0, 1f, 1.5f, 0),
+            PartPose.offsetAndRotation(-0.5f, -1f, -2f, 0.2f, 0, 0.2f));
+
+        return LayerDefinition.create(mesh, 32, 32);
     }
 
     @Override
     public void setupAnim(WildlifeRenderState state) {
         super.setupAnim(state);
-        this.rightWing.zRot = (float)(Math.sin(state.ageInTicks * 6.0F) * 0.4F) + 0.2F;
-        this.leftWing.zRot = (float)(Math.sin(state.ageInTicks * 6.0F + Math.PI) * 0.4F) - 0.2F;
+        float age = state.ageInTicks;
+        float ls = state.walkAnimationSpeed;
 
-        this.body.yRot = (float)(Math.sin(state.ageInTicks * 0.3F) * 0.1F);
+        // Slow gentle wing beats — fireflies fly lazily
+        float speed = ls > 0.01f ? 3f : 1.5f;
+        this.rightWing.zRot = (float)(Math.sin(age*speed)*0.4f);
+        this.leftWing.zRot = (float)(Math.sin(age*speed+Math.PI)*0.4f);
+
+        // Gentle bobbing
+        this.body.y = 23f + (float)(Math.sin(age*speed)*0.4f*ls);
+
+        // Antennae scan
+        this.rightAntenna.zRot = -0.2f + (float)(Math.sin(age*2f)*0.1f);
+        this.leftAntenna.zRot = 0.2f + (float)(Math.sin(age*2f+Math.PI)*0.1f);
+
+        if (ls < 0.01f) {
+            // Perching: wings folded, abdomen pulses (bioluminescent flash)
+            this.rightWing.zRot = 0.4f;
+            this.leftWing.zRot = -0.4f;
+            // Abdomen positioning for flash display
+            float flash = (float)(Math.abs(Math.sin(age*1.5f)));
+            this.abdomen.z = 0.5f + flash*0.3f;
+        } else {
+            this.abdomen.z = 0;
+        }
     }
 }

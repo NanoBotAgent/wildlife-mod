@@ -3,24 +3,18 @@ package com.wildlife.mod.client.model;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
-import net.minecraft.client.model.geom.builders.CubeListBuilder;
-import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.*;
 import com.wildlife.mod.client.renderstate.WildlifeRenderState;
 
 /**
- * Owl model - nocturnal bird with large head, forward-facing eyes, and silent wings.
+ * Owl model — round body, large forward-facing eyes, ear tufts, talons.
+ * Real owl: silent flight, head rotation up to 270 degrees,
+ * perching with talons, head bobbing when focused.
  */
 public class OwlModel extends EntityModel<WildlifeRenderState> {
-    private final ModelPart body;
-    private final ModelPart head;
-    private final ModelPart rightWing;
-    private final ModelPart leftWing;
-    private final ModelPart rightLeg;
-    private final ModelPart leftLeg;
-    private final ModelPart tail;
+    private final ModelPart body, head, rightWing, leftWing, tail;
+    private final ModelPart rightLeg, leftLeg;
+    private final ModelPart rightEarTuft, leftEarTuft;
 
     public OwlModel(ModelPart root) {
         super(root);
@@ -28,9 +22,11 @@ public class OwlModel extends EntityModel<WildlifeRenderState> {
         this.head = body.getChild("head");
         this.rightWing = body.getChild("right_wing");
         this.leftWing = body.getChild("left_wing");
+        this.tail = body.getChild("tail");
         this.rightLeg = body.getChild("right_leg");
         this.leftLeg = body.getChild("left_leg");
-        this.tail = body.getChild("tail");
+        this.rightEarTuft = head.getChild("right_ear_tuft");
+        this.leftEarTuft = head.getChild("left_ear_tuft");
     }
 
     public static LayerDefinition createLayerDefinition() {
@@ -38,69 +34,74 @@ public class OwlModel extends EntityModel<WildlifeRenderState> {
         PartDefinition root = mesh.getRoot();
 
         PartDefinition body = root.addOrReplaceChild("body",
-            CubeListBuilder.create()
-                .texOffs(0, 0)
-                .addBox(-3.0F, -4.0F, -3.0F, 6.0F, 5.0F, 6.0F, CubeDeformation.NONE),
-            PartPose.offset(0.0F, 16.0F, 0.0F));
+            CubeListBuilder.create().texOffs(0, 0).addBox(-4f, -7f, -4f, 8f, 8f, 7f),
+            PartPose.offset(0, 16f, 0));
 
-        body.addOrReplaceChild("head",
+        PartDefinition head = body.addOrReplaceChild("head",
             CubeListBuilder.create()
-                .texOffs(0, 11)
-                .addBox(-3.0F, -4.0F, -3.0F, 6.0F, 5.0F, 4.0F) // large head
-                .texOffs(20, 11)
-                .addBox(-1.0F, -0.5F, -5.0F, 2.0F, 1.0F, 2.0F) // beak
-                .texOffs(0, 20)
-                .addBox(-2.5F, -5.5F, -1.0F, 1.0F, 2.0F, 1.0F) // left ear tuft
-                .texOffs(0, 20)
-                .addBox(1.5F, -5.5F, -1.0F, 1.0F, 2.0F, 1.0F), // right ear tuft
-            PartPose.offset(0.0F, -4.0F, -3.0F));
+                .texOffs(0, 15).addBox(-3.5f, -3.5f, -3f, 7f, 5f, 5f)
+                .texOffs(22, 15).addBox(-1f, -0.5f, -5f, 2f, 1f, 2f),
+            PartPose.offset(0, -6.5f, -2f));
+
+        head.addOrReplaceChild("right_ear_tuft",
+            CubeListBuilder.create().texOffs(0, 0).addBox(-1f, -3f, 0, 1f, 3f, 1f),
+            PartPose.offsetAndRotation(-2.5f, -3f, -2f, 0, 0, -0.2f));
+        head.addOrReplaceChild("left_ear_tuft",
+            CubeListBuilder.create().texOffs(0, 0).addBox(0, -3f, 0, 1f, 3f, 1f),
+            PartPose.offsetAndRotation(2.5f, -3f, -2f, 0, 0, 0.2f));
 
         body.addOrReplaceChild("right_wing",
-            CubeListBuilder.create()
-                .texOffs(32, 0)
-                .addBox(-1.0F, 0.0F, -3.0F, 1.0F, 4.0F, 7.0F),
-            PartPose.offset(-3.0F, -3.0F, 0.0F));
-
+            CubeListBuilder.create().texOffs(30, 0).addBox(-1f, -1f, -1f, 1f, 7f, 6f),
+            PartPose.offset(-4f, -5f, -2f));
         body.addOrReplaceChild("left_wing",
-            CubeListBuilder.create()
-                .texOffs(32, 0)
-                .addBox(0.0F, 0.0F, -3.0F, 1.0F, 4.0F, 7.0F),
-            PartPose.offset(3.0F, -3.0F, 0.0F));
-
-        body.addOrReplaceChild("right_leg",
-            CubeListBuilder.create()
-                .texOffs(44, 0)
-                .addBox(-0.5F, 0.0F, -0.5F, 1.0F, 3.0F, 1.0F),
-            PartPose.offset(-1.5F, 1.0F, 0.0F));
-
-        body.addOrReplaceChild("left_leg",
-            CubeListBuilder.create()
-                .texOffs(44, 0)
-                .addBox(-0.5F, 0.0F, -0.5F, 1.0F, 3.0F, 1.0F),
-            PartPose.offset(1.5F, 1.0F, 0.0F));
+            CubeListBuilder.create().texOffs(30, 0).addBox(0, -1f, -1f, 1f, 7f, 6f),
+            PartPose.offset(4f, -5f, -2f));
 
         body.addOrReplaceChild("tail",
-            CubeListBuilder.create()
-                .texOffs(0, 23)
-                .addBox(-2.0F, -2.0F, 0.0F, 4.0F, 2.0F, 3.0F),
-            PartPose.offset(0.0F, -2.0F, 3.0F));
+            CubeListBuilder.create().texOffs(0, 25).addBox(-2.5f, -2f, 0, 5f, 3f, 3f),
+            PartPose.offset(0, -3f, 3f));
 
-        return LayerDefinition.create(mesh, 48, 32);
+        body.addOrReplaceChild("right_leg",
+            CubeListBuilder.create().texOffs(44, 0).addBox(-1f, 0, -1f, 2f, 5f, 2f),
+            PartPose.offset(-2f, 1f, 1f));
+        body.addOrReplaceChild("left_leg",
+            CubeListBuilder.create().texOffs(44, 0).addBox(-1f, 0, -1f, 2f, 5f, 2f),
+            PartPose.offset(2f, 1f, 1f));
+
+        return LayerDefinition.create(mesh, 64, 64);
     }
 
     @Override
     public void setupAnim(WildlifeRenderState state) {
         super.setupAnim(state);
-        float walkAnim = state.walkAnimationPos;
-        float limbSwing = state.walkAnimationSpeed;
+        float age = state.ageInTicks;
+        float wa = state.walkAnimationPos;
+        float ls = state.walkAnimationSpeed;
 
-        this.rightLeg.xRot = (float)(Math.sin(walkAnim * 0.6F) * 0.3F * limbSwing);
-        this.leftLeg.xRot = (float)(Math.sin(walkAnim * 0.6F + Math.PI) * 0.3F * limbSwing);
+        // Slow, silent wing beats — owls fly almost silently
+        this.rightWing.zRot = (float)(Math.sin(age*1.8f)*0.5f) + 0.2f;
+        this.leftWing.zRot = (float)(Math.sin(age*1.8f+Math.PI)*0.5f) - 0.2f;
 
-        this.rightWing.zRot = (float)(Math.sin(state.ageInTicks * 0.2F) * 0.03F);
-        this.leftWing.zRot = (float)(Math.sin(state.ageInTicks * 0.2F + Math.PI) * 0.03F);
+        // Perching legs
+        this.rightLeg.xRot = (float)(Math.sin(wa*0.5f)*0.15f*ls);
+        this.leftLeg.xRot = (float)(Math.sin(wa*0.5f+Math.PI)*0.15f*ls);
 
-        this.head.xRot = (float)(Math.sin(state.ageInTicks * 0.15F) * 0.05F);
-        this.head.yRot = (float)(Math.sin(state.ageInTicks * 0.1F) * 0.08F);
+        // Head rotation — owls rotate head almost fully (up to 270°)
+        this.head.yRot = (float)(Math.sin(age*0.06f)*0.6f);
+        this.head.zRot = (float)(Math.sin(age*0.05f)*0.15f);
+
+        this.tail.xRot = (float)(Math.sin(age*0.3f)*0.04f);
+
+        if (ls < 0.01f) {
+            // Wide head rotation when idle — scanning for prey
+            this.head.yRot = (float)(Math.sin(age*0.04f)*0.8f);
+            this.head.zRot = (float)(Math.sin(age*0.06f)*0.2f);
+            // Slow wing adjustment
+            this.rightWing.zRot = (float)(Math.sin(age*0.5f)*0.05f) + 0.2f;
+            this.leftWing.zRot = (float)(Math.sin(age*0.5f+Math.PI)*0.05f) - 0.2f;
+            // Ear tufts shift
+            this.rightEarTuft.zRot = -0.2f + (float)(Math.sin(age*0.1f)*0.05f);
+            this.leftEarTuft.zRot = 0.2f + (float)(Math.sin(age*0.1f+1f)*0.05f);
+        }
     }
 }
