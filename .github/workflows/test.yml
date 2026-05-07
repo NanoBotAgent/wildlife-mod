@@ -5,10 +5,10 @@ on:
   push:
     branches: [fabric]
     paths:
-    - 'src/**'
-    - 'build.gradle'
-    - 'gradle.properties'
-    - '.github/workflows/**'
+      - 'src/**'
+      - 'build.gradle'
+      - 'gradle.properties'
+      - '.github/workflows/**'
 
 env:
   java_version: '25'
@@ -18,49 +18,49 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Set up JDK 25
-      uses: actions/setup-java@v4
-      with:
-        java-version: ${{ env.java_version }}
-        distribution: 'temurin'
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.java_version }}
+          distribution: 'temurin'
 
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v3
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
-    - name: Build with Gradle
-      run: ./gradlew build
+      - name: Build with Gradle
+        run: ./gradlew build
 
-    - name: Stage mod for test client
-      run: |
-        mkdir -p run/mods
-        cp build/libs/wildlife-*.jar run/mods/
-        ls -la run/mods/
+      - name: Stage mod for test client
+        run: |
+          mkdir -p run/mods
+          cp build/libs/wildlife-*.jar run/mods/
+          ls -la run/mods/
 
-    - name: Run MC test client with GameTest
-      uses: headlesshq/mc-runtime-test@4.4.0
-      env:
-        JAVA_TOOL_OPTIONS: "-Dfabric-api.gametest"
-      with:
-        mc: '26.1.1'
-        modloader: fabric
-        regex: .*fabric.*
-        mc-runtime-test: fabric
-        java: ${{ env.java_version }}
-        fabric-api: '0.145.4'
-        fabric-gametest-api: '4.0.13+00a1fba6b3'
-        headlessmc-command: '--jvm "-DMcRuntimeGameTestMinExpectedGameTests=1"'
-        cache-mc: 'true'
+      - name: Run MC test client with GameTest
+        uses: headlesshq/mc-runtime-test@4.4.0
+        env:
+          JAVA_TOOL_OPTIONS: "-Dfabric-api.gametest"
+        with:
+          mc: '26.1.1'
+          modloader: fabric
+          regex: .*fabric.*
+          mc-runtime-test: fabric
+          java: ${{ env.java_version }}
+          fabric-api: '0.145.4'
+          fabric-gametest-api: '4.0.13+00a1fba6b3'
+          headlessmc-command: '--jvm "-DMcRuntimeGameTestMinExpectedGameTests=0"'
+          cache-mc: 'true'
 
-    - name: Upload build artifacts
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: wildlife-mod-test-artifacts
-        path: build/libs/*.jar
-        retention-days: 7
+      - name: Upload build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wildlife-mod-test-artifacts
+          path: build/libs/*.jar
+          retention-days: 7
